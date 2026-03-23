@@ -1,0 +1,538 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+
+    <!--    action machine transfer-->
+
+    <record id="action_machine_transfer" model="ir.actions.act_window">
+        <field name="name">Machine Transfer</field>
+        <field name="res_model">machine.transfer</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+
+    <!--    action machine-->
+
+    <record id="action_machine_management" model="ir.actions.act_window">
+        <field name="name">Machine Management</field>
+        <field name="res_model">machine.management.machine</field>
+        <field name="view_mode">list,form</field>
+        <field name="path">machine_management</field>
+    </record>
+
+
+
+<!--    action machine type-->
+
+    <record id="action_machine_type" model="ir.actions.act_window">
+        <field name="name">Machine Type</field>
+        <field name="res_model">machine.type</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+<!--    action machine tag-->
+
+     <record id="action_machine_tags" model="ir.actions.act_window">
+        <field name="name">Machine Tags</field>
+        <field name="res_model">machine.tags</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+
+
+    <!--    action machine service-->
+
+    <record id="action_machine_service" model="ir.actions.act_window">
+        <field name="name">Machine service</field>
+        <field name="res_model">machine.service</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+
+<!--res partner action-->
+
+    <record id="action_machine_customers" model="ir.actions.act_window">
+        <field name="name">Customers</field>
+        <field name="res_model">res.partner</field>
+        <field name="view_mode">list,form</field>
+        <field name="domain">[('machine_count', '>=' , 1)]</field>
+    </record>
+
+
+
+
+<!--    list view-->
+
+    <record id="machine_management_list_view" model="ir.ui.view">
+        <field name="name">machine.management.list.view</field>
+        <field name="model">machine.management.machine</field>
+        <field name="arch" type="xml">
+            <list string="Machine" decoration-success="state == 'in_service'" decoration-info="state == 'active'">
+                <field name="sequence_number"/>
+                <field name="name" string="Machine name"/>
+                <field name="date_of_purchase"/>
+                <field name="purchase_value"/>
+                <field name="customer_id"/>
+                <field name="company_id"/>
+                <field name="state"/>
+                <field name="is_warranty"/>
+            </list>
+        </field>
+    </record>
+
+<!--form view-->
+
+    <record id="machine_management_form_view" model="ir.ui.view">
+        <field name="name">machine.management.form.view</field>
+        <field name="model">machine.management.machine</field>
+        <field name="arch" type="xml">
+            <form string="Machine">
+
+                 <header>
+                     <button name="go_to_transfer_action"
+                             string="Create Transfer"
+                             class="oe_highlight"
+                             type="object"
+                     />
+
+                     <button string="Create Service"
+                             name="create_service_action"
+                             type="object"
+                             class="oe_highlight"
+                             />
+
+                     <button string="Sale Order"
+                             name="sale_order_action"
+                             type="object"
+                             class="oe_highlight"
+                             />
+
+
+                     <field name="state" help="State" widget="statusbar"/>
+                 </header>
+                <sheet>
+                    <widget name="web_ribbon" title="Archived" bg_color="text-bg-danger" invisible=" active == True "/>
+                    <div class="oe_button_box" name="button_box">
+                        <button type="object" name="transfers_action"
+                            class="oe_stat_button" icon="fa-desktop" invisible=" transfer_count == 0">
+                            <div class="o_stat_info">
+                                <field name="transfer_count" class="o_stat_value"/>
+                                <span class="o_stat_text"> Transfers</span>
+                            </div>
+                        </button>
+                        <button type="object" name="service_action"
+                            class="oe_stat_button" icon="fa-gears" invisible=" service_count == 0">
+                            <div class="o_stat_info">
+                                <field name="service_count" class="o_stat_value"/>
+                                <span class="o_stat_text"> Services</span>
+                            </div>
+                        </button>
+
+
+                    </div>
+
+                     <field
+                        name="image"
+                        widget="image"
+                        class="oe_avatar"
+                        options="{'convert_to_webp': True}"
+                    />
+                   <h1>
+                       <field name="sequence_number"/>
+                    </h1>
+                    <h1>
+                       <field name="name" string="Machine Name" help="Enter name" placeholder="Enter the Machine name"/>
+                    </h1>
+                    <group>
+                        <group>
+                            <field name="machine_tags" string="Tags" widget="many2many_tags" placeholder="Select Tags" options="{'color_field':'color'}"/>
+                            <field name="machine_type" help="Machine type"/>
+                            <field name="date_of_purchase" help="Date of Purchase"/>
+                            <field name="machine_age"/>
+                            <field name="currency_id" string="Currency" invisible="1"/>
+                            <field name="purchase_value" help="Purchase Value" />
+                            <field name="is_warranty" help="Warranty"/>
+                            <field name="customer_id" string="Customer" help="Customer" />
+
+                            <field name="sale_order_id"/>
+
+                        </group>
+                        <group>
+                            <field name="serial_no" string="Serial Number" />
+                            <field name="company_id" string="Company" default="lambda self: self.env.user.company_id"/>
+                            <field name="active" string="Active" invisible="1"/>
+                            <field name="service_frequency"/>
+                            <field name="last_service_date"/>
+                            <field name="todays_date"/>
+                            <field name="next_service_date"/>
+                        </group>
+                    </group>
+
+                    <notebook>
+                        <page string="Machine Parts">
+                            <field name="machine_parts_ids" readonly = "service_count > 0">
+                                <list editable="bottom">
+                                    <field name="product_id"/>
+                                    <field name="tags" widget="many2many_tags"/>
+                                    <field name="quantity"/>
+                                    <field name="uom_id"/>
+                                    <field name="price_unit"/>
+                                    <field name="amount"/>
+                                </list>
+                            </field>
+
+                            <group name="note_group" col="6" class="mt-2 mt-md-0">
+                                <group colspan="4" class="order-1 order-lg-0">
+                                    <field colspan="2" name="terms" nolabel="1" placeholder="Terms and conditions..."/>
+                                </group>
+                                <group class="oe_subtotal_footer d-flex order-0 order-lg-1 flex-column gap-0 gap-sm-3" >
+                                    <h3>
+                                        <group>
+                                            <field name="total" />
+                                        </group>
+                                    </h3>
+                                </group>
+                            </group>
+
+                        </page>
+                        <page string="Description">
+                            <field name="description" help="Enter the description" placeholder="Enter the Description"/>
+                        </page>
+                        <page string="Instructions">
+                            <group>
+                                <field name="machine_instructions" help="Enter the Instructions"/>
+                            </group>
+                        </page>
+                    </notebook>
+                </sheet>
+                <chatter/>
+            </form>
+        </field>
+    </record>
+
+
+<!--    machine search view-->
+
+
+<record id="machine_search" model="ir.ui.view">
+        <field name="name">machine.search.view</field>
+        <field name="model">machine.management.machine</field>
+        <field name="arch" type="xml">
+            <search>
+               <field name="name"/>
+                <field name="purchase_value"/>
+                <field name="customer_id"/>
+                <filter name="state" domain="[('state','=','active')]" string="Active machines"/>
+                <filter name="state" domain="[('state','=','in_service')]" string="In Service machines"/>
+                <group>
+                    <filter name="state" context="{'group_by':'state'}"/>
+                </group>
+                <separator/>
+                <filter name="active" string="Archived" domain="[('active','=', 'False')]"/>
+
+            </search>
+        </field>
+    </record>
+
+<!--    machine type list view-->
+
+    <record id="machine_type_list_view" model="ir.ui.view">
+        <field name="name">machine.type.list.view</field>
+        <field name="model">machine.type</field>
+        <field name="arch" type="xml">
+            <list string="Machine">
+                <field name="machine_type" string="Machine Type"/>
+            </list>
+        </field>
+    </record>
+
+<!--    machine form view-->
+
+    <record id="machine_type_form_view" model="ir.ui.view">
+        <field name="name">machine.type.form.view</field>
+        <field name="model">machine.type</field>
+        <field name="arch" type="xml">
+            <form string="Machine">
+                <sheet>
+                    <group>
+                        <h1>
+                            <field name="machine_type" string="Machine Type" placeholder="Enter Machine type"/>
+                        </h1>
+                    </group>
+                </sheet>
+                <chatter/>
+            </form>
+        </field>
+    </record>
+
+
+<!--    machine transfer list view-->
+
+    <record id="machine_transfer_list_view" model="ir.ui.view">
+        <field name="name">machine.transfer.list.view</field>
+        <field name="model">machine.transfer</field>
+        <field name="arch" type="xml">
+            <list string="Machine" decoration-info = " transfer_states == 'draft' "
+            decoration-success=" transfer_states == 'transfer' " decoration-bf=" transfer_states == 'transfer' ">
+                <field name="seq_number"/>
+                <field name="transfer_date"/>
+                <field name="machine_id" string="Machine "/>
+                <field name="customer_id"/>
+                <field name="company_id"/>
+                <field name="transfer_type" string="Transfer Type "/>
+                <field name="transfer_states"/>
+            </list>
+        </field>
+    </record>
+
+<!--    machine transfer form view-->
+
+    <record id="machine_transfer_form_view" model="ir.ui.view">
+        <field name="name">machine.transfer.form.view</field>
+        <field name="model">machine.transfer</field>
+        <field name="arch" type="xml">
+            <form string="Machine">
+                <header>
+                    <field name="transfer_states" widget="statusbar"/>
+                    <button name="transfer_action"
+                            class="oe_highlight"
+                            string="Transfer"
+                            type="object"
+                            invisible="transfer_states == 'transfer' "
+                            />
+
+                </header>
+                <sheet>
+                    <h1>
+                        <field name="seq_number"/>
+                    </h1>
+                    <widget name="web_ribbon" title="Transfer" bg_color="text-bg-success" invisible="transfer_states == 'draft' "/>
+                    <widget name="web_ribbon" title="Archived" bg_color="text-bg-danger" invisible=" active == True "/>
+
+                    <group>
+<!--                        <field name="machine_ids"/>-->
+                        <field name="machine_id" string="Machine" placeholder="Select the machine" domain="[('id','in', machine_ids)]" />
+                        <field name="machine_serial_num" string="Serial Number"/>
+                        <field name="transfer_date" string="Transfer Date"/>
+                        <field name="transfer_type" string="Transfer Type"/>
+                        <field  name="customer_id" string="Customer" invisible="transfer_type != 'install'" required="transfer_type == 'install' "/>
+                        <field name="active" invisible="1"/>
+                        <field name="company_id"/>
+                    </group>
+                    <notebook>
+                        <page string="Internal Notes">
+                            <field name="internal_notes" placeholder="Enter any notes"/>
+                        </page>
+                    </notebook>
+                </sheet>
+                <chatter/>
+            </form>
+        </field>
+    </record>
+
+
+<!--    machine transfer search view-->
+
+    <record id="machine_transfer_search_view" model="ir.ui.view">
+        <field name="name">Machine transfer Search View</field>
+        <field name="model">machine.transfer</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="machine_id" string="Machine Name"/>
+                <filter name="Archived" domain="[('active', '=', 'False')]"/>
+            </search>
+        </field>
+    </record>
+
+<!--    machine tag-->
+
+    <!--    machine tag list view-->
+
+    <record id="machine_tag_list_view" model="ir.ui.view">
+        <field name="name">machine.tag.list.view</field>
+        <field name="model">machine.tags</field>
+        <field name="arch" type="xml">
+            <list string="Machine" editable="bottom">
+                <field name="tag" string="Machine Type" />
+                <field name="color" widget="color_picker"/>
+            </list>
+        </field>
+    </record>
+
+<!--    machine form view-->
+
+    <record id="machine_tag_form_view" model="ir.ui.view">
+        <field name="name">machine.tag.form.view</field>
+        <field name="model">machine.tags</field>
+        <field name="arch" type="xml">
+            <form string="Machine">
+                <sheet>
+                    <group>
+                        <h1>
+                            <field name="tag" string="Machine Type" placeholder="Enter Machine type"/>
+                        </h1>
+                    </group>
+                </sheet>
+<!--                <chatter/>-->
+            </form>
+        </field>
+    </record>
+
+
+<!--    machine transfer search view-->
+
+    <record id="machine_transfer_search" model="ir.ui.view">
+        <field name="name">machine.transfer.search.view</field>
+        <field name="model">machine.transfer</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="machine_id" string="Machine Name"/>
+                <field name="customer_id" string="Customer"/>
+                <group>
+                <filter name="transfer_type" context="{'group_by':'transfer_type'}"/>
+                </group>
+                <group>
+                    <filter name="machine_id" context="{'group_by':'machine_id'}" string="Machines"/>
+                </group>
+
+            </search>
+        </field>
+    </record>
+
+
+<!--    res partner form view-->
+
+
+
+    <record id="machine_res_partner_inherit_form_view" model="ir.ui.view">
+        <field name="name">machine.res.partner.form</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_form"/>
+        <field name="arch" type="xml">
+
+            <div class="oe_button_box" name="button_box">
+                        <button type="object" name="action_customer_machines"
+                            class="oe_stat_button" icon="fa-desktop">
+                            <div class="o_stat_info">
+                                <field name="machine_count" class="o_stat_value"/>
+                                <span class="o_stat_text"> Machines</span>
+                            </div>
+                        </button>
+            </div>
+
+
+            <notebook>
+                <page string="Machines">
+                <field name="machine_ids">
+                    <list create="0">
+                        <field name="name" string="Machine Name"/>
+                        <field name="date_of_purchase"/>
+                        <field name="purchase_value"/>
+                        <field name="state"/>
+
+                    </list>
+                </field>
+                </page>
+            </notebook>
+
+        </field>
+    </record>
+
+
+
+
+
+<!--    machine service list view-->
+
+    <record id="machine_service_list_view" model="ir.ui.view">
+        <field name="name">machine.service.list.view</field>
+        <field name="model">machine.service</field>
+        <field name="arch" type="xml">
+            <list string="Machine" decoration-info = " service_state == 'open' " decoration-muted=" service_state =='cancel' "
+                                decoration-bf="service_state == 'done'" decoration-success=" service_state== 'done'">
+                <field name="seq_number"/>
+                <field name="machine_id" string="Machine "/>
+                <field name="date"/>
+                <field name="customer_id" string="Customer "/>
+                <field name="company_id"/>
+                <field name="service_state"/>
+            </list>
+        </field>
+    </record>
+
+
+<!--    MACHINE SERVICE FORM VIEW-->
+
+
+    <record id="machine_service_form_view" model="ir.ui.view">
+        <field name="name">machine.service.form.view</field>
+        <field name="model">machine.service</field>
+        <field name="arch" type="xml">
+            <form string="Machine">
+                <header>
+                    <button string="Start" name="start_action" type="object" class="oe_highlight" invisible="service_state != 'open'"/>
+                    <button string="Close" name="close_action" type="object" class="oe_highlight" invisible=" service_state != 'started'"
+                            groups="machine_management.machine_techperson,machine_management.res_user_group_machine_manager"/>
+                    <button string="Cancel" name="cancel_action" type="object"/>
+                    <button string=" Create Invoice" class="oe_highlight" invisible=" is_invoiced == True and service_state == 'done' or service_state!= 'done' " name="create_invoice" type="object"/>
+
+                    <field name="service_state" widget="statusbar"/>
+                </header>
+                <sheet>
+                    <h1>
+                       <field name="seq_number"/>
+                    </h1>
+                    <div class="oe_button_box" name="button_box">
+                         <button type="object" name="action_view_invoice"
+                            class="oe_stat_button" icon="fa-pencil-square-o" invisible="invoice_count == 0">
+                             <div class="o_stat_info">
+                                <field name="invoice_count" class="o_stat_value"/>
+                                <span class="o_stat_text"> Invoices</span>
+                             </div>
+                        </button>
+                    </div>
+                    <group>
+                        <group>
+<!--                            <field name="invoice_ids"/>-->
+                            <field name="machine_id" string="Machine Name "/>
+                            <field name="customer_id" string="Customer "/>
+                            <field name="company_id"/>
+                            <field name="date"/>
+                            <field name="tech_person_ids" widget="many2many_tags"/>
+                            <field name="is_invoiced" invisible="1"/>
+                            <field name="create_uid"/>
+
+                        </group>
+
+                        <notebook>
+                            <page string="Parts Consumed">
+                                <field name="machine_parts_ids">
+                                    <list editable="bottom">
+                                        <field name="product_id"/>
+                                        <field name="quantity"/>
+                                        <field name="uom_id"/>
+                                        <field name="price_unit"/>
+                                        <field name="amount"/>
+                                    </list>
+                                </field>
+                            </page>
+                            <page string="Description">
+                                <field name="description" placeholder="Enter Description"/>
+                            </page>
+                            <page string="Internal Notes">
+                                <field name="internal_note" placeholder="Enter Notes"/>
+                            </page>
+                        </notebook>
+                    </group>
+
+                </sheet>
+                <chatter/>
+
+            </form>
+        </field>
+    </record>
+
+
+
+
+
+</odoo>

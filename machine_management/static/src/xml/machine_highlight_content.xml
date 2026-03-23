@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<templates id="template" xml:space="preserve">
+	<t t-name="machine_management.machine_data">
+		<section class="s_carousel_cards_wrapper pt64 pb64">
+			<t t-set="uniq" t-value="milli"/>
+		<div>
+			<h2 class="h3">Machines</h2>
+			<p class="lead">Check out machines in our company !</p>
+		</div>
+    	<div t-attf-id="machines_carousel{{uniq}}" class="container carousel slide" data-bs-ride="carousel" t-att-data-bs-interval="interval" >
+       	<div class="carousel-inner row w-100 mx-auto" role="listbox">
+
+          	<t t-foreach="chunkData" t-as="chunk" t-key="chunk">
+                	<div t-att-class="chunk.is_active ? 'carousel-item active' : 'carousel-item'">
+                     	<div class="row">
+                        	<t t-foreach="chunk" t-as="item" t-key="item">
+                           	<div class="block span3 col-3">
+                               	<div class="card-group">
+									<a t-attf-href="/machine_overview/{{item.id}}">
+                                   	<div class="card">
+
+										<img t-if="item.image" class="card-img-top" t-attf-src="data:image/*;base64,{{item.image}}"
+											style="padding: 0px; margin: 0px; height: 250px; width:305px;"/>
+										<img t-else="" class="card-img-top" src="/machine_management/static/src/img/image.png"
+											style="padding: 0px; margin: 0px; height: 250px; width:305px;"/>
+										<h5 class="text-center fw-normal text-uppercase text-bg-light p-3"><t t-out="item.name"/></h5>
+
+                                   	</div>
+									</a>
+
+                               	</div>
+                           	</div>
+                        	</t>
+                    	</div>
+                	</div>
+          	</t>
+      	</div>
+		<a t-attf-href="#machines_carousel{{uniq}}" class="carousel-control-prev" data-bs-slide="prev" role="button" aria-label="Previous" title="Previous" style="color: grey;">
+        	<span class="fa fa-chevron-circle-left fa-3x" style="margin-right : 200px"/>
+			<span class="visually-hidden">Previous</span>
+    	</a>
+ 		<a t-attf-href="#machines_carousel{{uniq}}" class="carousel-control-next" data-bs-slide="next" role="button" aria-label="Next" title="Next" style="color: grey; ">
+        	<span class="fa fa-chevron-circle-right fa-3x" style="margin-left : 200px"/>
+        	<span class="visually-hidden">Next</span>
+    	</a>
+    	</div>
+		</section>
+	</t>
+</templates>
+
+
+

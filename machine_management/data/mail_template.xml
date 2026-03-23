@@ -1,0 +1,40 @@
+<odoo>
+   <data>
+       <record id="email_template_name" model="mail.template">
+           <field name="name">EMAIL TEMPLATE NAME</field>
+           <field name="model_id" ref="machine_management.model_machine_service"/>
+           <field name="subject">{{ object.company_id.name }}</field>
+           <field name="email_from">{{object.company_id.email}}</field>
+           <field name="partner_to">{{object.customer_id.email}}</field>
+           <field name="description">Add Description</field>
+           <field name="body_html" type="html">
+               <div>
+                   <p>
+                       Hello,
+                       <t t-out="object.customer_id.name"/>
+                       <br/>
+                       <br/>
+                        Your Service with Reference Number: <b>
+                       <t t-out="object.seq_number"/>
+                   </b> has been Completed.
+                       <br/>
+                       <br/>
+
+                       <br/>
+                       Your Next Service Date has been Scheduled: <b><t t-out="object.machine_id.next_service_date"/></b>
+                       <br/>
+                       <br/>
+                       If any enquiries, feel free to contact.
+                       <br/>
+                       <br/>
+                       Have a Nice Day. Thank You
+                       <br/>
+                       <br/>Mitchell Admin
+                       <br/>
+                       <br/>
+                   </p>
+               </div>
+           </field>
+       </record>
+   </data>
+</odoo>

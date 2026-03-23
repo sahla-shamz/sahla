@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <template id="machine_list_website_template" name="Machine Service Website Form">
+        <t name="Machine Service Page" t-name="machine_management.machine_service">
+            <t t-call="website.layout">
+                <div id="wrap" class="oe_structure oe_empty">
+                    <section class="s_title parallax s_parallax_is_fixed bg-black-50 pt24 pb24" data-vcss="001" data-snippet="s_title" data-scroll-background-ratio="1">
+                    <span class="s_parallax_bg oe_img_bg" style="background-image: url('/web/image/website.s_parallax_default_image'); background-position: 50% 0;"/>
+                    <div class="o_we_bg_filter bg-black-50"/>
+                    <div class="container">
+                        <h1>Machines List</h1>
+                    </div>
+                    </section>
+                    <section class="s_text_block pt40 pb40 o_colored_level" style="background-color: white;">
+                        <div class="container s_allow_columns">
+                            <div class="row">
+                                <div class="col-lg-7 mt-4 mt-lg-0">
+                                    <p class="lead">
+                                        List of all the Machines.<br/>
+                                        Contact us about anything related to our company or services.<br/>
+                                        We'll do our best to get back to you as soon as possible.
+                                    </p>
+                                    <div class="container">
+                                        <table class="o_has_total_table table o_main_table table-borderless">
+                                            <thead style="display: table-row-group">
+                                               <tr style="border: 2px solid beige;">
+                                                   <th style="font-size: 17px;" valign="center"><b>Image</b></th>
+                                                   <th style="font-size: 17px;" valign="center"><b>Sequence Number</b></th>
+                                                   <th style="font-size: 17px;" valign="center"><b>Machine Name</b></th>
+                                                   <th style="font-size: 17px;" valign="center"><b>Date of Purchase</b></th>
+                                                   <th style="font-size: 17px;" valign="center"><b>Customer</b></th>
+                                               </tr>
+                                            </thead>
+
+                                            <tbody class="invoice_tbody">
+                                                <t t-foreach="machines" t-as="machine">
+
+                                                   <tr style=" border: 1px solid beige;">
+                                                       <td>
+                                                           <div style="border: 1px solid #f0eaea;width: 150px;height: auto;padding: 7% 0% 10% 0%;
+                                                                    border-radius: 3px;overflow: hidden; margin-bottom: 44px !important;width: 100%;height: 100%;">
+                                                               <div class="oe_product_image">
+                                                                       <div style="width:100%; height:150px;overflow: hidden;">
+                                                                           <img t-if="machine.image"
+                                                                                t-attf-src="data:image/*;base64,{{machine.image}}"
+                                                                                class="img oe_product_image"
+                                                                                style="padding: 0px; margin: 0px; width:200px; height:150px;"/>
+                                                                           <img t-else=""
+                                                                                class="img oe_product_image"
+                                                                                src="/machine_management/static/src/img/image.png"
+											                                    style="padding: 0px; margin: 0px; height: 200px; width:150px;"/>
+
+                                                                       </div>
+                                                               </div>
+                                                           </div>
+                                                       </td>
+
+                                                           <td style=" font-size: 15px;" valign="center" ><t t-out="machine.sequence_number"/></td>
+                                                           <td style=" font-size: 15px;" valign="center" t-out="machine.name"></td>
+                                                           <td style=" font-size: 15px;" valign="center" t-out="machine.date_of_purchase"></td>
+                                                           <t t-if="machine.customer_id" ><td style=" font-size: 15px;" valign="center" t-out="machine.customer_id.name"></td></t>
+                                                           <t t-else=""><td style=" font-size: 15px;" valign="center"> </td></t>
+
+                                                       <td><a t-attf-href="/odoo/machine_management/{{machine.id}}" role="button" class="btn btn-primary s_website_form_send">Redirect</a></td>
+                                                       <td><a t-attf-href="/machine_overview/{{machine.id}}" role="button" class="btn btn-primary s_website_form_send">View</a></td>
+                                                   </tr>
+                                                </t>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4 offset-lg-1 mt-4 mt-lg-0">
+                                    <h5>My Company</h5>
+                                    <ul class="list-unstyled mb-0 ps-2">
+                                        <li><i class="fa fa-map-marker fa-fw me-2"/><span class="o_force_ltr">3575 Fake Buena Vista Avenue</span></li>
+                                        <li><i class="fa fa-phone fa-fw me-2"/><span class="o_force_ltr">+1 555-555-5556</span></li>
+                                        <li><i class="fa fa-1x fa-fw fa-envelope me-2"/><span>info@yourcompany.example.com</span></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+            </t>
+        </t>
+    </template>
+
+
+    <template id="machine_overview_website_template" name="Machine Service Website Form">
+        <t name="Machine Service Page" t-name="machine_management.machine_service">
+            <t t-call="website.layout">
+                <div id="wrap" class="oe_structure oe_empty">
+                    <section class="s_text_block pt40 pb40 o_colored_level" style="background-color: white;">
+                        <div class="container s_allow_columns">
+                            <div class="row">
+                                <div style="border: 1px solid #f0eaea;width: 150px;height: auto;padding: 7% 0% 10% 0%;
+                                            border-radius: 3px;overflow: hidden; margin-bottom: 44px !important;width: 100%;height: 100%;">
+                                        <h2 style="font-family : Times New Romans; text-align : center; margin:20px;">MACHINE DETAILS</h2>
+                                    <div class="oe_product_image">
+                                           <div style="width:100%; height:100%;overflow: hidden;">
+                                               <center>
+                                               <img t-if="machine.image"
+                                                    t-attf-src="data:image/*;base64,{{machine.image}}"
+                                                    class="img oe_product_image"
+                                                    style="padding: 0px; margin: 0px; width:500px; height:500px; border : 2px solid rgba(210,210,210,0.5);"/>
+                                               </center>
+                                               <br/>
+                                               <table class="o_has_total_table table o_main_table table-borderless" style=" border: 1px solid beige; font-size: 22px;">
+                                                   <tbody style=" border: 1px solid beige; ">
+                                                   <tr>
+                                                       <th>Machine : </th>
+                                                       <td><t t-out="machine.name.upper()"/></td>
+                                                   </tr>
+                                                   <tr>
+                                                       <th>Sequence Number:</th>
+                                                       <td><t t-out="machine.sequence_number"/></td>
+                                                   </tr>
+                                                       <tr t-if="machine.customer_id">
+                                                           <th>Customer:</th>
+                                                           <td><t t-out="machine.customer_id.name"/></td>
+                                                       </tr>
+                                                   <tr>
+                                                       <th>Date Of Purchase: </th>
+                                                       <td><t t-out="machine.date_of_purchase"/></td>
+                                                   </tr>
+                                                   <tr>
+                                                       <th>Machine Age: </th>
+                                                       <td><t t-out="machine.machine_age"/></td>
+                                                   </tr>
+                                                   <tr>
+                                                       <th>State:</th>
+                                                       <td><t t-out="machine.state.upper()"/></td>
+                                                   </tr>
+                                                   </tbody>
+                                               </table>
+                                           </div>
+                                     </div>
+
+                                        <div class="mb-0 py-2 col-12 s_website_form_submit s_website_form_no_submit_label text-end" data-name="Submit Button">
+                                            <div style="width: 200px;" class="s_website_form_label"/>
+                                            <center>
+                                            <a href="/machine_list" role="button" class="btn btn-primary s_website_form_send">Go Back</a>
+                                            </center>
+                                        </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+            </t>
+        </t>
+    </template>
+
+
+    <record id="menu_machine_list_page" model="website.menu">
+        <field name="name">Machines Page</field>
+        <field name="url">/machine_list</field>
+        <field name="parent_id" ref="website.main_menu"/>
+        <field name="sequence" type="int">60</field>
+    </record>
+
+
+
+
+</odoo>

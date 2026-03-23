@@ -1,0 +1,16 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_machine_type,access.machine.type,machine_management.model_machine_type,base.group_user,1,1,1,1
+access_machine_transfer,access.machine.transfer,machine_management.model_machine_transfer,base.group_user,1,1,1,1
+access_machine_parts,access.machine.parts,machine_management.model_machine_parts,base.group_user,1,1,1,1
+access_machine_tags,access.machine.tags,machine_management.model_machine_tags,base.group_user,1,1,1,1
+
+access_machine_management_machine_techperson,access.machine.management.machine.techperson,machine_management.model_machine_management_machine,machine_management.machine_techperson,1,1,1,0
+access_machine_management_machine_manager,access.machine.management.machine.manager,machine_management.model_machine_management_machine,machine_management.res_user_group_machine_manager,1,1,1,1
+
+
+access_machine_service_techperson,access.machine.service.techperson,machine_management.model_machine_service,machine_management.machine_techperson,1,1,1,0
+access_machine_service_manager,access.machine.service.manager,machine_management.model_machine_service,machine_management.res_user_group_machine_manager,1,1,1,1
+
+access_machine_transfer,access.machine.transfer,machine_management.model_machine_transfer,machine_management.res_user_group_machine_manager,1,1,1,1
+
+access_machine_transfer_reporting,access.machine.transfer.reporting,machine_management.model_machine_transfer_reporting,res_user_group_machine_manager,1,1,1,1

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data noupdate="1">
+        <record id="seq_machine" model="ir.sequence">
+            <field name="name">Machine Sequence</field>
+            <field name="code">machine.management.machine</field>
+            <field name="prefix">MC</field>
+            <field name="padding">5</field>
+            <field name="company_id" eval="False"/>
+            <field name="number_next">1</field>
+            <field name="number_increment">1</field>
+        </record>
+
+        <record id="service_seq" model="ir.sequence">
+            <field name="name">Service Sequence</field>
+            <field name="code">machine.service</field>
+            <field name="prefix">SC</field>
+            <field name="padding">5</field>
+            <field name="company_id" eval="False"/>
+            <field name="number_next">1</field>
+            <field name="number_increment">1</field>
+        </record>
+
+        <record id="transfer_seq" model="ir.sequence">
+            <field name="name">Transfer Sequence</field>
+            <field name="code">machine.transfer</field>
+            <field name="prefix">TR</field>
+            <field name="padding">5</field>
+            <field name="company_id" eval="False"/>
+            <field name="number_next">1</field>
+            <field name="number_increment">1</field>
+        </record>
+
+    </data>
+</odoo>
+
