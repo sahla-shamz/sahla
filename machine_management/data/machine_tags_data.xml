@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <record id="machine_tag_energy_saver" model="machine.tags">
+            <field name="tag">Energy Saver</field>
+            <field name="color">5</field>
+        </record>
+        <record id="machine_tag_best_seller" model="machine.tags">
+            <field name="tag">Best Seller</field>
+            <field name="color">3</field>
+        </record>
+        <record id="machine_tag_new_arrival" model="machine.tags">
+            <field name="tag">New Arrival</field>
+            <field name="color">8</field>
+        </record>
+    </data>
+</odoo>

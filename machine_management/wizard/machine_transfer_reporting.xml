@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+
+    <record id="action_machine_transfer_reporting" model="ir.actions.act_window">
+        <field name="name">Machine Transfer Reporting</field>
+        <field name="res_model">machine.transfer.reporting</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+
+    <record id="machine_transfer_reporting_wizard" model="ir.ui.view">
+        <field name="name">machine.transfer.reportig.wizard</field>
+        <field name="model">machine.transfer.reporting</field>
+        <field name="arch" type="xml">
+            <form string="Machine Transfer Report">
+                <group>
+                    <field name="partner_id" widget="many2many_tags"/>
+                        <field name="from_date"/>
+                        <field name="to_date"/>
+                    <field name="machine_id" widget="many2many_tags"/>
+                    <field name="transfer_types"/>
+                </group>
+                <footer>
+                    <button string="Print PDF" class="oe_highlight" name="action_print" type="object"/>
+                    <button string="Print XLS" class="oe_highlight" name="action_print_xls" type="object"/>
+                </footer>
+
+            </form>
+        </field>
+    </record>
+</odoo>

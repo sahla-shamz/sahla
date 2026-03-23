@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+   <template id="report_machine_transfer_report_details">
+       <t t-call="web.html_container">
+           <t t-call="web.external_layout">
+                <center><h2>Machine Transfer Report</h2></center>
+               <div class="page">
+                   <t t-set="customer" t-value="set([dict['name'] for dict in vals])"/>
+                   <t t-if="len(customer) == 1">
+                       <t t-set="unique" t-value="True"/>
+                       <h5><b>Customer:</b> <t t-esc="list(customer)[0]"/></h5>
+                   </t>
+
+                   <t t-set="machines" t-value="set([dict['machine_name'] for dict in vals])"/>
+                   <t t-if="len(machines) == 1">
+                       <t t-set="unique_machine" t-value="True"/>
+                       <h6> <b>Machine:</b> <t t-esc="list(machines)[0]"/></h6>
+                   </t>
+                    <t t-if="install_list">
+                   <h6> <b>Transfer Type:</b> Install</h6>
+
+                    <table class="o_has_total_table table o_main_table table-borderless">
+                        <thead style="display: table-row-group">
+                           <tr>
+                               <th style="font-size: 17px;" valign="center"><b>Transfer</b></th>
+                               <th style="font-size: 17px;" valign="center"><b>Transfer Date</b></th>
+                               <t t-if="not unique"><th style="font-size: 17px;" valign="center" ><b>Customer</b></th></t>
+                               <t t-if="not unique_machine"><th style="font-size: 17px;" valign="center"><b>Machine Name</b></th></t>
+                               <th style=" font-size: 17px;" valign="center"><b>Transfer Type</b></th>
+                               <th style=" font-size: 17px;" valign="center"><b>Transfer State</b></th>
+                               <th style=" font-size: 17px;" valign="center"><b>Company</b></th>
+
+                           </tr>
+
+                        </thead>
+                        <hr/>
+
+                        <tbody class="sale_tbody">
+                            <t t-foreach="install_list" t-as="data">
+                               <tr>
+                                   <td style=" font-size: 15px;" valign="center" t-out="data['seq_number']"></td>
+                                   <td style=" font-size: 15px;" valign="center" t-out="data['transfer_date']"></td>
+                                   <t t-if="not unique"><td style=" font-size: 15px;" valign="center" t-out="data['name']"></td></t>
+                                   <t t-if="not unique_machine"><td style="text-transform: capitalize; font-size: 15px;" valign="center" t-out="data['machine_name']"></td></t>
+                                   <td style="text-transform: capitalize; font-size: 15px;" valign="center; " t-out="data['transfer_type']" ></td>
+                                   <td style=" font-size: 15px;" valign="center" t-out="data['transfer_states'].capitalize()"></td>
+                                   <td style=" font-size: 15px;" valign="center" t-out="data['company']"></td>
+                               </tr>
+                             </t>
+                        </tbody>
+                    </table>
+                    </t>
+
+
+                   <t t-if="remove_list">
+                       <br/>
+                    <h6> <b>Transfer Type:</b> Remove</h6>
+                   <table class="o_has_total_table table o_main_table table-borderless">
+
+                        <thead style="display: table-row-group">
+
+                           <tr>
+                               <th style="font-size: 17px;" valign="center"><b>Transfer</b></th>
+                               <th style="font-size: 17px;" valign="center"><b>Transfer Date</b></th>
+                               <t t-if="not unique_machine"><th style="font-size: 17px;" valign="center"><b>Machine Name</b></th></t>
+                               <th style=" font-size: 17px;" valign="center"><b>Transfer Type</b></th>
+                               <th style=" font-size: 17px;" valign="center"><b>Transfer State</b></th>
+                               <th style=" font-size: 17px;" valign="center"><b>Company</b></th>
+
+                           </tr>
+
+                        </thead>
+                        <hr/>
+
+                        <tbody class="sale_tbody">
+                            <t t-foreach="remove_list" t-as="data">
+                               <tr>
+                                   <td style=" font-size: 15px;" valign="center" t-out="data['seq_number']"></td>
+                                   <td style=" font-size: 15px;" valign="center" t-out="data['transfer_date']"></td>
+                                   <t t-if="not unique_machine"><td style=" font-size: 15px;" valign="center" t-out="data['machine_name']"></td></t>
+                                   <td style=" font-size: 15px;" valign="center" t-out="data['transfer_type']"></td>
+                                   <td style=" font-size: 15px;" valign="center" t-out="data['transfer_states']"></td>
+                                   <td style=" font-size: 15px;" valign="center" t-out="data['company']"></td>
+
+                               </tr>
+                             </t>
+                        </tbody>
+                    </table>
+                    </t>
+
+               </div>
+           </t>
+       </t>
+   </template>
+</odoo>

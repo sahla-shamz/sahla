@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+
+
+    <template id="create_customer_website_form_template" name="Create Customer Webpage">
+        <t name="Machine Service Page" t-name="machine_management.machine_service">
+            <t t-call="website.layout">
+                <div id="wrap" class="oe_structure oe_empty">
+                    <section class="s_title parallax s_parallax_is_fixed bg-black-50 pt24 pb24" data-vcss="001" data-snippet="s_title" data-scroll-background-ratio="1">
+                    <span class="s_parallax_bg oe_img_bg" style="background-image: url('/web/image/website.s_parallax_default_image'); background-position: 50% 0;"/>
+                    <div class="o_we_bg_filter bg-black-50"/>
+                    <div class="container">
+                        <h1>Create Customer</h1>
+                    </div>
+                    </section>
+                    <section class="s_text_block pt40 pb40 o_colored_level" style="background-color: white;">
+                        <div class="container s_allow_columns">
+                            <div class="row">
+                                <div class="col-lg-7 mt-4 mt-lg-0">
+                                    <p class="lead">
+                                        Create Customer from HERE.....<br/>
+                                    </p>
+                                    <div class="container">
+                                        <form action="/website/customer/create" method="post" style="padding : 60px;">
+                                            <div class="s_website_form_rows row s_col_no_bgcolor">
+                                                <div class="mb-3 col-lg-6 s_website_form_field s_website_form_custom s_website_form_required" data-type="char" data-name="Field">
+                                                    <div style="height: 600px; width: 600px; ">
+
+                                                        <label class="s_website_form_label" style="width: 200px; padding : 20px;" for="contact6">
+                                                            <span class="s_website_form_label_content">Customer Name:</span>
+                                                            <span class="s_website_form_mark"> *</span>
+                                                        </label>
+                                                        <input type="name" name="name" class="form-control s_website_form_input"/>
+
+
+                                                        <label class="s_website_form_label" style="width: 200px;  padding : 20px;" for="contact6">
+                                                            <span class="s_website_form_label_content">Email:</span>
+                                                            <span class="s_website_form_mark"> *</span>
+                                                        </label>
+                                                        <input type="email" name="email" class="form-control s_website_form_input"/>
+
+
+                                                        <label class="s_website_form_label" style="width: 200px; padding : 20px;" for="contact2">
+                                                            <span class="s_website_form_label_content">Phone Number</span>
+                                                            <span class="s_website_form_mark"> *</span>
+                                                        </label>
+                                                        <input id="contact2" type="tel" class="form-control s_website_form_input" name="phone" data-fill-with="phone"/>
+
+                                                        <label class="s_website_form_label" style="width: 200px; padding : 20px;" for="contact6">
+                                                            <span class="s_website_form_label_content">Country</span>
+                                                            <span class="s_website_form_mark"> *</span>
+                                                        </label>
+                                                        <select name="machine" class="form-control s_website_form_input">
+                                                           <option value="">Select Country</option>
+                                                           <t t-foreach="countries" t-as="country">
+                                                               <option t-att-value="country.id">
+                                                                   <t t-esc="country.name"/>
+                                                               </option>
+                                                           </t>
+                                                        </select>
+
+
+                                                        <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+
+                                                        <div class="mb-0 py-2 col-12 s_website_form_submit s_website_form_no_submit_label text-end" data-name="Submit Button">
+                                                            <div style="width: 200px;" class="s_website_form_label"/>
+                                                                <button class="btn btn-primary btn-block rounded-3 py-2">Submit</button>
+                                                            </div>
+                                                        </div>
+
+                                                    </div>
+
+                                                </div>
+
+                                        </form>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4 offset-lg-1 mt-4 mt-lg-0">
+                                    <h5>My Company</h5>
+                                    <ul class="list-unstyled mb-0 ps-2">
+                                        <li><i class="fa fa-map-marker fa-fw me-2"/><span class="o_force_ltr">3575 Fake Buena Vista Avenue</span></li>
+                                        <li><i class="fa fa-phone fa-fw me-2"/><span class="o_force_ltr">+1 555-555-5556</span></li>
+                                        <li><i class="fa fa-1x fa-fw fa-envelope me-2"/><span>info@yourcompany.example.com</span></li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                        </div>
+
+
+                    </section>
+
+                </div>
+
+
+            </t>
+        </t>
+
+    </template>
+
+    <template id="customer_create_success_template" name="Customer Created">
+        <t t-call="website.layout">
+            <section class="d-flex align-items-center justify-content-center vh-100" style="background-color: #f8f9fa;">
+                <div class="text-center">
+                    <h3 class="text-success mb-3">Customer Created Successfully!</h3>
+                    <a href="/machine_service" class="btn btn-primary rounded-3">Go back to Machine Service Form</a>
+                </div>
+            </section>
+        </t>
+    </template>
+
+
+
+
+    <record id="menu_customer_page" model="website.menu">
+        <field name="name">Customer Page</field>
+        <field name="url">/create_customer</field>
+        <field name="parent_id" ref="website.main_menu"/>
+        <field name="sequence" type="int">60</field>
+    </record>
+
+</odoo>
