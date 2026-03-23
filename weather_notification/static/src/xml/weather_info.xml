@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<templates xml:space="preserve">
+
+    <t t-name="systray_icon" owl="1">
+<Dropdown>
+        <button>
+            <div t-on-click="weather_info">
+                <i class="fa fa-cloud" style="cursor: pointer; font-size: 18px;"/>
+            </div>
+        </button>
+
+    <t t-set-slot="content">
+               <DropdownItem>
+                   <div style="height : 200px; width : 400px; ">
+                        <h4>Temperature :  <t t-esc="this.state.value.main.temp"/></h4>
+                       <h2><t t-esc="this.state.value.weather[0].main"/> </h2>
+                       <h3><t t-esc="this.state.value.weather[0].description"/> In <t t-esc="this.state.value.name"/></h3>
+                       <h6>Last Updated on <br/><t t-esc="this.state.date"/></h6>
+                   </div>
+               </DropdownItem>
+
+        </t>
+</Dropdown>
+        </t>
+
+</templates>
