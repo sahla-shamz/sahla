@@ -11,12 +11,26 @@
 
     <t t-set-slot="content">
                <DropdownItem>
-                   <div style="height : 200px; width : 400px; ">
-                        <h4>Temperature :  <t t-esc="this.state.value.main.temp"/></h4>
-                       <h2><t t-esc="this.state.value.weather[0].main"/> </h2>
-                       <h3><t t-esc="this.state.value.weather[0].description"/> In <t t-esc="this.state.value.name"/></h3>
-                       <h6>Last Updated on <br/><t t-esc="this.state.date"/></h6>
+                   <div style="height : 230px; width : 400px; padding : 10px; display: flex;">
+                       <div style="height : 150px; width : 50%;">
+                       <p><t t-esc="this.state.tdate"/></p>
+                        <h1><t t-esc="this.state.value.main.temp"/>° <t t-esc="this.state.value.weather[0].main"/> </h1>
+                           <h3>feels like<t t-esc="this.state.value.main.feels_like"/>°</h3>
+
+                       <p><t t-esc="this.state.value.weather[0].description"/> In <t t-esc="this.state.value.name"/></p>
+                       <p>Near <t t-esc="this.state.value.name"/></p>
+                           <p>Humidity : <t t-esc="this.state.value.main.humidity"/>% , Cloudiness : <t t-esc="this.state.value.clouds.all"/></p>
+                       </div>
+                       <div style="height : 150px ; width : 50%;">
+                        <img t-attf-src="{{this.state.img}}" height="180px" width="180px"/>
+                       </div>
+
                    </div>
+                   <div style="height : 50px; width : 380px; padding : 10px;">
+                       <h6>Last Updated on <br/></h6>
+                       <p><t t-esc="this.state.date"/></p>
+                   </div>
+
                </DropdownItem>
 
         </t>
