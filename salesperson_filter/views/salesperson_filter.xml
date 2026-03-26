@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+
+
+    <record id="crm_salesperson_filter_list_view_inherit" model="ir.ui.view">
+        <field name="name">crm.salesperson.list.view.inherit</field>
+        <field name="model">crm.lead</field>
+        <field name="inherit_id" ref="crm.crm_case_tree_view_oppor"/>
+        <field name="arch" type="xml">
+
+               <xpath expr="//list" position="attributes">
+                   <attribute name="js_class">crm_lead_list</attribute>
+               </xpath>
+
+        </field>
+    </record>
+
+
+</odoo>
