@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<templates xml:space="preserve">
+    <t t-name="salesperson_filter.CrmListTemplate">
+        <xpath expr="//Layout/t[@t-set-slot='control-panel-create-button']" position="inside">
+<!--          <select>-->
+<!--              <option>Select</option>-->
+<!--              <option>Marc Demo</option>-->
+<!--          </select>-->
+            <button string="Demo" class="oe_highlight"/>
+      </xpath>
+    </t>
+</templates>
