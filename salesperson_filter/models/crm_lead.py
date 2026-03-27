@@ -4,9 +4,9 @@ class CRMLead(models.Model):
     _inherit = 'crm.lead'
 
 
-    demo_field = fields.Integer(string="Demo Field")
+    # demo_field = fields.Integer(string="Demo Field")
 
-    def action_hello(self):
-        print("helloo")
+    # def action_hello(self):
+    #     print("helloo")
 
 
