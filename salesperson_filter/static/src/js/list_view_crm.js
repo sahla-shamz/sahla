@@ -26,6 +26,8 @@ export class CrmListRenderer extends ListRenderer {
 
 
 
+
+
     }
 
 
@@ -34,16 +36,6 @@ export class CrmListRenderer extends ListRenderer {
         console.log("data", this.props)
         this.state.salesperson = await this.orm.searchRead("res.users", [] , ["id", "name"])
         console.log(this.state.salesperson)
-        console.log("contextttt",this)
-//        this.action.doAction({
-//                            type: "ir.actions.act_window",
-//                            res_model: "crm.lead",
-//                            views: [
-//                                [false, "list"],
-//                                [false, "form"],
-//                            ],
-//                            domain : [['user_id' , '=' , this.state.salesperson.id]]
-//                        })
 
 
     }
@@ -52,7 +44,27 @@ export class CrmListRenderer extends ListRenderer {
     onChange(){
         console.log("hbbbbbbbbbd")
         console.log(this.state.salesperson.id)
-        console.log(this.action.currentAction.then())
+//        this.env.searchModel.searchDomain = [['user_id' , '=', this.state.salesperson.id]]
+//        this.env.searchModel._domain = [['user_id' , '=', Number(this.state.salesperson.id)]]
+//        this.env.searchModel._context.default_type = oppor
+        this.env.searchModel.searchItems[12].domain = [['user_id', '=', Number(this.state.salesperson.id)]]
+//        this.env.searchModel._context.globalContext[search_default_assigned_to_me] = 1
+        console.log("search", this.env.searchModel)
+//        console.log("search", this.env.searchModel.clearQuery())
+        this.env.searchModel.clearQuery()
+        this.env.searchModel.toggleSearchItem(12)
+        console.log("envvvv", this.env)
+        const preFilter = {
+                description : "New",
+                tooltip : "Neww",
+                domain: [['user_id', '=', Number(this.state.salesperson.id)]],
+//                invisible: "True",
+                type: "filter",
+            };
+        console.log(this.env.searchModel.createNewFilters(preFilter))
+
+        console.log("fdddddddddddddd", this.env.searchModel)
+//        console.log(this.action.currentAction.then())
 //         this.action.doAction({
 //                type: "ir.actions.act_window",
 //                res_model: "crm.lead",
@@ -60,16 +72,13 @@ export class CrmListRenderer extends ListRenderer {
 //                    [false, "list"],
 //                    [false, "form"],
 //                ],
-//                domain : [['user_id' , 'in' , [Number(this.state.salesperson.id)]]]
+//                context : [['user_id' , 'in' , [Number(this.state.salesperson.id)]]]
 //            })
     }
 
 
 
-//    static components = {
-//        ...ListRenderer.components,
-//
-//    };
+
 };
 
 export const crmListView = {
