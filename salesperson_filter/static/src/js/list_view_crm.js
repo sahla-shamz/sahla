@@ -1,15 +1,9 @@
 /** @odoo-module **/
 import { registry } from '@web/core/registry';
 import { listView } from '@web/views/list/list_view';
-//import { ListController } from '@web/views/list/list_controller';
-//import { ControlPanel } from "@web/search/control_panel/control_panel";
 import { ListRenderer } from "@web/views/list/list_renderer";
-import { onWillStart, useState, onMounted, onWillRender } from '@odoo/owl';
-import { user } from "@web/core/user";
+import { onWillStart, useState } from '@odoo/owl';
 import { useService } from "@web/core/utils/hooks";
-
-
-
 
 export class CrmListRenderer extends ListRenderer {
     static template = "salesperson_filter.CrmListTemplate";
@@ -17,67 +11,40 @@ export class CrmListRenderer extends ListRenderer {
     setup() {
         super.setup();
         this.orm = useService("orm")
-        this.action = useService("action");
-        this.state = useState({ salesperson: [] });
+        this.state = useState({ salesperson: [], name : "" });
 
         onWillStart(async ()=>{
             await this.get_users()
         })
 
-
-
-
-
     }
 
 
     async get_users(){
-        console.log(user)
-        console.log("data", this.props)
-        this.state.salesperson = await this.orm.searchRead("res.users", [] , ["id", "name"])
-        console.log(this.state.salesperson)
-
-
+        this.state.salesperson = await this.orm.searchRead("res.users", [["share", "=", false]] , ["id", "name"])
     }
 
 
     onChange(){
-        console.log("hbbbbbbbbbd")
-        console.log(this.state.salesperson.id)
-//        this.env.searchModel.searchDomain = [['user_id' , '=', this.state.salesperson.id]]
-//        this.env.searchModel._domain = [['user_id' , '=', Number(this.state.salesperson.id)]]
-//        this.env.searchModel._context.default_type = oppor
-        this.env.searchModel.searchItems[12].domain = [['user_id', '=', Number(this.state.salesperson.id)]]
-//        this.env.searchModel._context.globalContext[search_default_assigned_to_me] = 1
-        console.log("search", this.env.searchModel)
-//        console.log("search", this.env.searchModel.clearQuery())
         this.env.searchModel.clearQuery()
-        this.env.searchModel.toggleSearchItem(12)
-        console.log("envvvv", this.env)
-        const preFilter = {
-                description : "New",
-                tooltip : "Neww",
-                domain: [['user_id', '=', Number(this.state.salesperson.id)]],
-//                invisible: "True",
-                type: "filter",
-            };
-        console.log(this.env.searchModel.createNewFilters(preFilter))
+        for(var i =0; i<this.state.salesperson.length; i++)
+        {   if (this.state.salesperson[i].id == this.state.salesperson.id)
+                this.state.name =  this.state.salesperson[i].name
+        }
 
-        console.log("fdddddddddddddd", this.env.searchModel)
-//        console.log(this.action.currentAction.then())
-//         this.action.doAction({
-//                type: "ir.actions.act_window",
-//                res_model: "crm.lead",
-//                views: [
-//                    [false, "list"],
-//                    [false, "form"],
-//                ],
-//                context : [['user_id' , 'in' , [Number(this.state.salesperson.id)]]]
-//            })
+        var preFilter = {
+            description : `Salesperson contains ${this.state.name}`,
+            domain: [['user_id', '=', Number(this.state.salesperson.id)]],
+            type: "filter",
+        }
+
+        this.env.searchModel.createNewFilters([preFilter])
+
+        if (this.state.salesperson.id == 'select'){
+            this.env.searchModel.clearQuery()
+        }
+
     }
-
-
-
 
 };
 

@@ -1,24 +1,12 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <templates xml:space="preserve">
-<!--    <t t-name="salesperson_filter.CrmListTemplate" t-inherit="web.ListRenderer">-->
-<!--&lt;!&ndash;        <xpath expr="//*[hasclass('o_control_panel_actions')]" position="after">&ndash;&gt;-->
-<!--        <xpath expr="//ControlPanel" position="after">-->
-<!--            <select>-->
-<!--              <option>Select</option>-->
-<!--              <option>Marc Demo</option>-->
-<!--            </select>-->
-<!--&lt;!&ndash;            <button string="Demo" class="oe_highlight"/>&ndash;&gt;-->
-<!--        </xpath>-->
-
-<!--&lt;!&ndash;      </xpath>&ndash;&gt;-->
-<!--    </t>-->
-
 
     <t t-name="salesperson_filter.CrmListTemplate" t-inherit="web.ListRenderer" t-inherit-mode="primary">
         <xpath expr="//table" position="before">
             <div style="height : 70px ; width : 250px; margin : 20px;">
+                <h4>Sales Person:</h4>
                 <select t-model="state.salesperson.id" t-on-change="onChange">
-                    <option>Select</option>
+                    <option value="select">Select</option>
                     <t t-foreach="this.state.salesperson" t-as="salesperson" t-key="salesperson_index">
                         <option t-att-value="salesperson.id" t-esc="salesperson.name"/>
 
@@ -26,18 +14,7 @@
 
                 </select>
             </div>
-
         </xpath>
     </t>
 
-
 </templates>
-
-
-
-<!--<t t-name="web.ListRenderer">-->
-<!--        <t t-set="_canSelectRecord" t-value="canSelectRecord"/>-->
-<!--        <div-->
-<!--            class="o_list_renderer o_renderer table-responsive"-->
-<!--            tabindex="-1"-->
-<!--            t-ref="root"-->
