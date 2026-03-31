@@ -15,18 +15,6 @@
     </record>
 
 
-<!--    <record id="crm_salesperson_filter_search_view_inherit" model="ir.ui.view">-->
-<!--        <field name="name">crm.salesperson.search.view.inherit</field>-->
-<!--        <field name="model">crm.lead</field>-->
-<!--        <field name="inherit_id" ref="crm.view_crm_case_opportunities_filter"/>-->
-<!--        <field name="arch" type="xml">-->
-
-<!--            <xpath expr="//field[@name='partner_id']" position="replace">-->
-<!--                <filter string="New" name="assigned_to_user" domain="[('user_id', '=',2)]" />-->
-<!--            </xpath>-->
-
-<!--        </field>-->
-<!--    </record>-->
 
 
 </odoo>
