@@ -8,8 +8,7 @@
         <field name="arch" type="xml">
             <group name="provider_credentials" position='inside'>
                 <group invisible="code != 'multisafe'">
-                    <field name="multisafe_website_key" required="code == 'multisafe' and state != 'disabled'"/>
-                    <field name="multisafe_secret_key" string="Secret Key" required="code == 'multisafe' and state != 'disabled'" password="True"/>
+                    <field name="multisafe_api_key" required="code == 'multisafe' and state != 'disabled'"/>
                 </group>
             </group>
         </field>

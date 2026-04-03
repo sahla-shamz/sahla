@@ -6,17 +6,11 @@ class PaymentProvider(models.Model):
     _inherit = 'payment.provider'
 
     code = fields.Selection(selection_add=[('multisafe', 'MultiSafe')], ondelete={'multisafe': 'set default'})
-    multisafe_website_key = fields.Char(
-        string="Website Key",
+    multisafe_api_key = fields.Char(
+        string="API Key",
         help="The key solely used to identify the website with multisafe",
         required_if_provider='multisafe',
         copy=False,
-    )
-    multisafe_secret_key = fields.Char(
-        string="Multisafe Secret Key",
-        required_if_provider='multisafe',
-        copy=False,
-
     )
 
 
@@ -29,14 +23,14 @@ class PaymentProvider(models.Model):
 
 
 
-    def _multisafe_get_api_url(self):
-        """ Return the API URL according to the state.
-
-        Note: self.ensure_one()
-
-        :return: The API URL
-        :rtype: str
-        """
-        self.ensure_one()
-        if self.state == 'enabled':
-            return 'https://testapi.multisafepay.com/v1/json/orders'
+    # def _multisafe_get_api_url(self):
+    #     """ Return the API URL according to the state.
+    #
+    #     Note: self.ensure_one()
+    #
+    #     :return: The API URL
+    #     :rtype: str
+    #     """
+    #     self.ensure_one()
+    #     if self.state == 'enabled':
+    #         return 'https://testapi.multisafepay.com/v1/json/orders'
