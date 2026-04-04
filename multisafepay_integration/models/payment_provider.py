@@ -1,5 +1,7 @@
-from odoo import fields, models,api
+from odoo import fields, models,api, tools
 from odoo.addons.payment_custom import const
+from odoo.addons.multisafepay_integration.controllers.main import MultisafeController
+from odoo.http import request
 
 
 class PaymentProvider(models.Model):
@@ -23,14 +25,11 @@ class PaymentProvider(models.Model):
 
 
 
-    # def _multisafe_get_api_url(self):
-    #     """ Return the API URL according to the state.
-    #
-    #     Note: self.ensure_one()
-    #
-    #     :return: The API URL
-    #     :rtype: str
-    #     """
-    #     self.ensure_one()
-    #     if self.state == 'enabled':
-    #         return 'https://testapi.multisafepay.com/v1/json/orders'
+    def _multisafe_get_api_url(self):
+        self.ensure_one()
+        if self.state == 'enabled':
+            return f'https://testapi.multisafepay.com/v1/json/orders?api_key={self.multisafe_api_key}'
+
+
+
+
