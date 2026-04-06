@@ -1,7 +1,8 @@
-from odoo import fields, models,api, tools
+from odoo import fields, models,api, tools, service
 from odoo.addons.payment_custom import const
 from odoo.addons.multisafepay_integration.controllers.main import MultisafeController
-from odoo.http import request
+from odoo.tools import urls
+
 
 
 class PaymentProvider(models.Model):
@@ -27,8 +28,45 @@ class PaymentProvider(models.Model):
 
     def _multisafe_get_api_url(self):
         self.ensure_one()
-        if self.state == 'enabled':
-            return f'https://testapi.multisafepay.com/v1/json/orders?api_key={self.multisafe_api_key}'
+        # if self.state == 'enabled':
+        #     return f'https://testapi.multisafepay.com/v1/json/orders?api_key={self.multisafe_api_key}'
+        return f'https://testapi.multisafepay.com/v1/json/orders?api_key={self.multisafe_api_key}'
+
+
+
+    def _build_request_url(self, endpoint, **kwargs):
+        """Override of `payment` to build the request URL."""
+        print("_build_request_url")
+        if self.code != 'multisafe':
+            return super()._build_request_url(endpoint, **kwargs)
+        print(urls.urljoin(f'https://testapi.multisafepay.com/v1/json/orders?api_key={self.multisafe_api_key}', endpoint)
+)
+        return urls.urljoin(f'https://testapi.multisafepay.com/v1/json/orders?api_key={self.multisafe_api_key}', endpoint)
+
+
+
+    def _build_request_headers(self, *args, **kwargs):
+        """Override of `payment` to build the request headers."""
+        print("build request header")
+        if self.code != 'multisafe':
+            return super()._build_request_headers(*args, **kwargs)
+
+        odoo_version = service.common.exp_version()['server_version']
+        module_version = self.env.ref('base.module_multisafepay_integration').installed_version
+        return {
+            'Accept': 'application/json',
+            'Authorization': f'Bearer {self.multisafe_api_key}',
+            'Content-Type': 'application/json',
+            'User-Agent': f'Odoo/{odoo_version} MollieNativeOdoo/{module_version}',
+        }
+
+
+    def _parse_response_error(self, response):
+        """Override of `payment` to parse the error message."""
+        if self.code != 'multisafe':
+            return super()._parse_response_error(response)
+
+        return response.json().get('detail', '')
 
 
 
