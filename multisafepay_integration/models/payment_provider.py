@@ -4,11 +4,11 @@ from odoo.addons.multisafepay_integration.controllers.main import MultisafeContr
 from odoo.tools import urls
 
 
-
 class PaymentProvider(models.Model):
     _inherit = 'payment.provider'
 
     code = fields.Selection(selection_add=[('multisafe', 'MultiSafe')], ondelete={'multisafe': 'set default'})
+
     multisafe_api_key = fields.Char(
         string="API Key",
         help="The key solely used to identify the website with multisafe",
@@ -19,14 +19,15 @@ class PaymentProvider(models.Model):
 
     def _get_default_payment_method_codes(self):
         """ Override of `payment` to return the default payment method codes. """
+        print("DEFAULT PAYMENT METHOD CODE")
         self.ensure_one()
         if self.code != 'multisafe':
             return super()._get_default_payment_method_codes()
         return const.DEFAULT_PAYMENT_METHOD_CODES
 
 
-
     def _multisafe_get_api_url(self):
+        print("MULTISAFE API GET URL")
         self.ensure_one()
         # if self.state == 'enabled':
         #     return f'https://testapi.multisafepay.com/v1/json/orders?api_key={self.multisafe_api_key}'
@@ -36,7 +37,8 @@ class PaymentProvider(models.Model):
 
     def _build_request_url(self, endpoint, **kwargs):
         """Override of `payment` to build the request URL."""
-        print("_build_request_url")
+        print("BUILD API REQUEST URL")
+        print(endpoint, kwargs)
         if self.code != 'multisafe':
             return super()._build_request_url(endpoint, **kwargs)
         print(urls.urljoin(f'https://testapi.multisafepay.com/v1/json/orders?api_key={self.multisafe_api_key}', endpoint)
@@ -47,7 +49,8 @@ class PaymentProvider(models.Model):
 
     def _build_request_headers(self, *args, **kwargs):
         """Override of `payment` to build the request headers."""
-        print("build request header")
+        print("BUILD REQUEST HEADER")
+        print(args, kwargs)
         if self.code != 'multisafe':
             return super()._build_request_headers(*args, **kwargs)
 
@@ -61,12 +64,6 @@ class PaymentProvider(models.Model):
         }
 
 
-    def _parse_response_error(self, response):
-        """Override of `payment` to parse the error message."""
-        if self.code != 'multisafe':
-            return super()._parse_response_error(response)
-
-        return response.json().get('detail', '')
 
 
 

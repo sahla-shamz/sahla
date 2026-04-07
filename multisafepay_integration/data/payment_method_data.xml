@@ -3,7 +3,7 @@
     <data>
         <record id="payment_method_multisafepay" model="payment.method">
         <field name="name">MultiSafe Pay</field>
-        <field name="code">multisafe_pay</field>
+        <field name="code">multisafe</field>
         <field name="sequence">1009</field>
         <field name="active">True</field>
         <field name="image" type="base64" file="multisafepay_integration/static/img/multisafe_pay.png"/>
@@ -26,6 +26,7 @@
                          ref('base.SEK'),
                          ref('base.USD'),
                          ref('base.ZAR'),
+                         ref('base.INR'),
                      ])]"
         />
     </record>

@@ -8,9 +8,9 @@
            <t t-foreach="url_params" t-as="param">
                 <input type="hidden" t-att-name="param" t-att-value="url_params[param]" />
             </t>
-           <input type="hidden" t-att-name="redirect_url" t-att-value="redirect_url" />
-           <input type="hidden" t-att-name="return_url" t-att-value="return_url" />
-           <input type="hidden" t-att-name="payload" t-att-value="payload" />
+<!--           <input type="hidden" t-att-name="redirect_url" t-att-value="redirect_url" />-->
+<!--           <input type="hidden" t-att-name="return_url" t-att-value="return_url" />-->
+<!--           <input type="hidden" t-att-name="payload" t-att-value="payload" />-->
        </form>
 </template>
 </odoo>

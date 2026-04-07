@@ -1,2 +1,16 @@
 from . import models
 from . import controllers
+
+from odoo.addons.payment import setup_provider, reset_payment_provider
+
+
+
+
+def post_init_hook(env):
+    print("yes post init hook")
+    setup_provider(env, 'multisafe')
+
+
+def uninstall_hook(env):
+    print("yes uninstall hook")
+    reset_payment_provider(env, 'multisafe')
