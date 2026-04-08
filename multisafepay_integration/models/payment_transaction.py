@@ -1,15 +1,14 @@
+# -*- coding: utf-8 -*-
+
 from odoo.addons.payment.logging import get_payment_logger
-from odoo import api, fields, models, release, _
+from odoo import api, models, _
 import requests
 from werkzeug.urls import url_decode, url_parse
 from odoo.exceptions import ValidationError
-from odoo.tools import urls
 from odoo.tools.urls import urljoin as url_join
-from odoo.http import Controller, request, Response, route
+from odoo.http import request
 from odoo.addons.payment import utils as payment_utils
 import json
-
-
 from odoo.addons.multisafepay_integration.controllers.main import MultisafeController
 
 _logger = get_payment_logger(__name__)
@@ -20,8 +19,7 @@ class PaymentTransaction(models.Model):
 
 
     def _get_specific_rendering_values(self,processing_values):
-        print("GET SPECIFIC RENDERING VALUES")
-        print(processing_values)
+        """Return a dict of multisafe-specific values used to render the redirect form."""
         if self.provider_code != 'multisafe':
             return super()._get_specific_rendering_values(processing_values)
         base_url = self.provider_id.get_base_url()
@@ -39,7 +37,7 @@ class PaymentTransaction(models.Model):
             "days_active": 30,
             "seconds_active": 2592000,
             "order_id": self.reference,
-            "currency": self.currency_id.name,
+            "currency": self.env.user.currency_id.name,
             "amount": self.amount *100,
             "type" : "redirect",
             "description": "Test order description",
@@ -48,7 +46,6 @@ class PaymentTransaction(models.Model):
                 "redirect_url": url_join(base_url, "/payment/multisafe/return"),
                 "notification_url": url_join(base_url ,"/payment/multisafe/webhook"),
                 "notification_method": "POST",
-                'return_url': url_join(base_url, "/payment/multisafe/return"),
                 "cancel_url": url_join(base_url, "/payment/multisafe/return")
             },
 
@@ -78,13 +75,10 @@ class PaymentTransaction(models.Model):
 
     def _apply_updates(self, payment_data):
         """Override of `payment` to update the transaction based on the payment data."""
-        print("APPLY UPDATES")
-        print(payment_data)
         if self.provider_code != 'multisafe':
             return super()._apply_updates(payment_data)
 
         # Update the payment method.
-        # print("self", self)
         self.payment_method_id = self.payment_method_id
 
         # Update the payment state.
@@ -108,20 +102,15 @@ class PaymentTransaction(models.Model):
     @api.model
     def _extract_reference(self, provider_code, payment_data):
         """Override of `payment` to extract the reference from the payment data."""
-        print("EXTRACT REFERENCE")
-        print(payment_data)
         if provider_code != 'multisafe':
             return super()._extract_reference(provider_code, payment_data)
         return payment_data.get('transactionid')
 
 
-
     @staticmethod
     def _verify_and_process(data):
-        print("VERIFY AND PROCESS")
-        print("data")
+        """To verify and proccess the payment data and process the payment"""
         tx_sudo = request.env['payment.transaction'].sudo()._search_by_reference('multisafe', data)
-        # print("tx_sudo", tx_sudo)
         if not tx_sudo:
             return
 
@@ -137,22 +126,15 @@ class PaymentTransaction(models.Model):
 
 
 
-
     def _extract_amount_data(self, payment_data):
         """Override of `payment` to extract the amount and currency from the payment data."""
-        print("EXTRACT AMOUNT DATA")
-        print(payment_data)
         if self.provider_code != 'multisafe':
             return super()._extract_amount_data(payment_data)
 
-        # print(payment_data)
         amount_data = payment_data.get('data', {})
-        # print("amount data", amount_data)
         amount = amount_data.get('amount') / 100
         currency_code = amount_data.get('currency')
-        # print(amount, currency_code)
         return {
             'amount': float(amount),
             'currency_code': currency_code,
         }
-
