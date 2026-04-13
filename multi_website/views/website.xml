@@ -16,54 +16,35 @@
             </field>
         </record>
 
-
-
-
         <record id="website_form_search_view" model="ir.ui.view">
             <field name="name">website.search.view</field>
             <field name="model">website</field>
             <field name="arch" type="xml">
-
                 <search>
-
                    <filter name="archived" string="Archived" domain="[('active', '=', False)]"/>
-
                 </search>
-
             </field>
         </record>
-
-
 
     <record id="website_menu_form_search_view" model="ir.ui.view">
             <field name="name">website.menu.search.view</field>
             <field name="model">website.menu</field>
             <field name="inherit_id" ref="website.menu_search"/>
             <field name="arch" type="xml">
-
                 <search>
-
                    <filter name="archived" string="Archived" domain="[('active', '=', False)]"/>
-
                 </search>
-
             </field>
         </record>
-
-
 
     <record id="website_menu_active_form_view_inherit" model="ir.ui.view">
             <field name="name">website.menu.active.form.view</field>
             <field name="model">website.menu</field>
             <field name="inherit_id" ref="website.website_menus_form_view"/>
             <field name="arch" type="xml">
-
                 <xpath expr="//field[@name='website_id']" position="after">
-
                     <field name="active"/>
-
                 </xpath>
-
             </field>
         </record>
 
