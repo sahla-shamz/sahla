@@ -15,7 +15,15 @@
         <field name="arch" type="xml">
             <form>
                 <group>
-                    <field name="field_id"/>
+                    <field name="model_id"/>
+                    <field name="field_id" domain="[('model_id', '=', model_id), ('id', 'not in', field_ids)]" />
+                    <field name="field_ids" invisible="1"/>
+                    <field name="one2many_field_id" domain="[('model_id', '=', one2many_model)]"
+                           invisible="not is_one2many or not field_id" />
+                    <field name="search_rec" invisible="not field_id or is_date or is_boolean or is_selection"/>
+                    <field name="search_date" invisible="not field_id or not is_date"/>
+                    <field name="search_boolean" invisible="not field_id or not is_boolean"/>
+                    <field name="selection_ids" domain="[('field_id', '=', field_id)]" invisible="not field_id or not is_selection"/>
                 </group>
                 <footer>
                     <button string="search" class="oe_highlight" type="object" name="action_search"/>
@@ -24,20 +32,6 @@
             </form>
         </field>
     </record>
-
-
-
-<!--    <record id="data_search_search_wizard" model="ir.ui.view">-->
-<!--        <field name="name">data.search.search.wizard</field>-->
-<!--        <field name="model">data.search</field>-->
-<!--        <field name="arch" type="xml">-->
-<!--            <search>-->
-<!--                    <field name="name"/>-->
-
-<!--            </search>-->
-<!--        </field>-->
-<!--    </record>-->
-
 
 
 </odoo>
