@@ -2,6 +2,7 @@
 
 from odoo import fields, models, api
 
+
 class DataSearch(models.TransientModel):
     _name = "data.search"
     _description = "Data Search"
@@ -16,9 +17,10 @@ class DataSearch(models.TransientModel):
     is_one2many= fields.Boolean("Is One2many", default=False, compute="_compute_is_one2many")
     search_boolean = fields.Selection([('true', 'True'), ('false', 'False')], string="Search Boolean")
     is_boolean =  fields.Boolean("Is Boolean Field", default=False, compute="_compute_is_boolean")
-    field_ids= fields.Many2many('ir.model.fields', string="Fields", compute="_compute_field_ids")
     selection_ids= fields.Many2one("ir.model.fields.selection", string="Selection Fields")
     is_selection= fields.Boolean("Is Selection Field", default=False, compute="_compute_is_selection")
+
+
 
     @api.depends('field_id')
     def _compute_is_date(self):
@@ -39,7 +41,6 @@ class DataSearch(models.TransientModel):
             rec.one2many_model = model.id
 
 
-
     @api.depends('field_id')
     def _compute_is_one2many(self):
         """Check whether the field type is one2many"""
@@ -50,23 +51,24 @@ class DataSearch(models.TransientModel):
                 rec.is_one2many = False
 
 
-
     @api.depends('field_id')
     def _compute_is_boolean(self):
+        """Check whether the field type is boolean or not"""
         for rec in self:
             if rec.field_id.ttype == 'boolean':
                 rec.is_boolean = True
             else:
                 rec.is_boolean = False
 
+
     @api.depends('field_id')
     def _compute_is_selection(self):
-       for rec in self:
-           print("helooo")
-           if self.field_id.ttype == 'selection':
-               rec.is_selection = True
-           else:
-               rec.is_selection = False
+        """Check whether the field type is selection or not"""
+        for rec in self:
+            if self.field_id.ttype == 'selection':
+                rec.is_selection = True
+            else:
+                rec.is_selection = False
 
 
     def action_search(self):
@@ -91,8 +93,6 @@ class DataSearch(models.TransientModel):
 
 
         elif self.field_id.ttype == 'boolean' :
-            print("booolllean")
-            print(self.search_boolean)
             if not self.search_boolean:
                 return {
                     'type': 'ir.actions.client',
@@ -109,8 +109,6 @@ class DataSearch(models.TransientModel):
 
 
         elif self.field_id.ttype == 'selection' :
-            print("selection")
-            print(self.field_id.selection_ids)
             if not self.selection_ids:
                 return {
                     'type': 'ir.actions.client',
@@ -121,7 +119,6 @@ class DataSearch(models.TransientModel):
                     }
                 }
             records = self.env[self.model_id.model].search([(self.field_id.name, '=', self.selection_ids.value)])
-
 
 
         else:
@@ -155,16 +152,5 @@ class DataSearch(models.TransientModel):
             "domain": [('id', 'in', records.ids)],
         }
 
-    @api.depends('model_id')
-    def _compute_field_ids(self):
-        for rec in self:
-            print("aaaaaaaaaaaaaaaaaaaaaaaaaaaa")
-            # print(self.model_id.search([('id', 'in', rec.model_id)]))
-            idss= self.field_id.search([]).filtered(lambda l : l.store == False and l.ttype == 'boolean' and l.model_id == rec.model_id)
-            print(idss)
-            print(len(idss))
-            rec.field_ids = [fields.Command.set(idss.ids)]
-            # rec.field_ids = idss
-            print(rec.field_ids)
 
 
