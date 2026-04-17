@@ -16,8 +16,7 @@
             <form>
                 <group>
                     <field name="model_id"/>
-                    <field name="field_id" domain="[('model_id', '=', model_id), ('id', 'not in', field_ids)]" />
-                    <field name="field_ids" invisible="1"/>
+                    <field name="field_id" domain="[('model_id', '=', model_id), ('store', '!=', False)]" />
                     <field name="one2many_field_id" domain="[('model_id', '=', one2many_model)]"
                            invisible="not is_one2many or not field_id" />
                     <field name="search_rec" invisible="not field_id or is_date or is_boolean or is_selection"/>
