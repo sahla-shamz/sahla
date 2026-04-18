@@ -8,7 +8,9 @@
 
             <xpath expr="//field[@name='category_id']" position="after">
 
-               <field name="product_ids" widget="many2many_tags"/>
+               <field name="select_pro_cat"/>
+               <field name="product_ids" widget="many2many_tags" invisible="not is_product"/>
+               <field name="product_category_ids" widget="many2many_tags" invisible="not is_category "/>
 
             </xpath>
 
