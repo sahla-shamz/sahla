@@ -3,7 +3,7 @@
     "description" : "Website Product Visibility",
     "version" : "19.0.1.0.0",
     "category" : "website",
-    "depends": ["product", "sale"],
+    "depends": ["product", "sale", "website_sale"],
     "data": [
         "views/res_partner.xml"
     ],
