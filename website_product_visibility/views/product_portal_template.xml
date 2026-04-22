@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+        <template id="portal_my_products" name="My Products">
+      <t t-call="portal.portal_layout">
+
+          <t t-set="breadcrumbs_searchbar" t-value="True"/>
+
+        <t t-call="portal.portal_searchbar">
+            <t t-set="title">Products</t>
+        </t>
+        <t t-if="not products">
+            <p class="alert alert-warning">There are currently no products allowed to your account.</p>
+        </t>
+        <t t-call="portal.portal_table">
+            <thead>
+                <tr class="active">
+                    <th>Product</th>
+                    <th>Category</th>
+                    <th>Selling Price</th>
+                    <th>Cost Price</th>
+                    <th> </th>
+                </tr>
+            </thead>
+            <tbody>
+                <t t-foreach="products" t-as="product">
+                    <tr>
+                        <td>
+                            <a t-attf-href="/product_details/{{product.id}}"><t t-out="product.name"/></a>
+                        </td>
+                        <td>
+                            <t t-out="product.categ_id.name"/>
+                        </td>
+                        <td>
+                            <t t-out="product.list_price"/>
+                        </td>
+                        <td>
+                            <t t-out="product.standard_price"/>
+                        </td>
+                        <td>
+                            <a t-attf-href="/product/{{product.id}}" role="button"
+                               class="btn btn-primary w-100 w-md-auto ms-auto px-5">View</a>
+                        </td>
+
+                    </tr>
+                </t>
+            </tbody>
+        </t>
+      </t>
+    </template>
+
+<!--    <template id="portal_my_product_menu"-->
+<!--              name="Portal layout : Product menu entries"-->
+<!--              inherit_id="portal.portal_breadcrumbs">-->
+<!--        <xpath expr="//ol[hasclass('o_portal_submenu')]" position="inside">-->
+<!--            <li t-if="page_name == 'my_products'"-->
+<!--                class="breadcrumb-item active">-->
+<!--                <span>Products</span>-->
+<!--            </li>-->
+<!--        </xpath>-->
+<!--    </template>-->
+
+
+
+
+
+</odoo>

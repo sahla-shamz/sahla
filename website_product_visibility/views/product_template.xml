@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <template id="product_template" name="Product Detail Template">
+        <t name="Product Detail Template" t-name="website_product_visibility.product_detail_template">
+            <t t-call="portal.portal_layout">
+
+          <t t-set="breadcrumbs_searchbar" t-value="True"/>
+
+        <t t-call="portal.portal_searchbar">
+            <t t-set="title">Products</t>
+        </t>
+
+                <div style="height : 500px; width : 1100px; display : flex; align-items : center; justify-content : center;">
+                    <div style="height : 400px; width : 50%;">
+                        <img t-attf-src="data:image/*;base64,{{product.image_1920}}" class="img oe_product_image"
+                             style="padding: 0px; margin: 0px; width:100%; height:100%;"/>
+                    </div>
+
+                    <div style="height : 400px; width : 50%; background-color : white;">
+                        <div style="height:90%; width : 90%; padding : 90px;">
+                            <h2><t t-out="product.name"/></h2>
+                        <hr/>
+                            <t t-if="product.description_sale">
+                                <p><t t-out="product.description_sale"/> </p>
+                            </t>
+                        <h5>Sale Price: <t t-esc="user"/> <t t-out="product.list_price"/></h5>
+                       <h5>Category : <t t-out="product.categ_id.name"/></h5>
+                        </div>
+                    </div>
+                </div>
+
+
+<!--            </t>-->
+        </t>
+        </t>
+    </template>
+
+
+
+
+    <template id="portal_my_home_menu_invoice" name="Portal layout : invoice menu entries" inherit_id="portal.portal_breadcrumbs" priority="30">
+        <xpath expr="//ol[hasclass('o_portal_submenu')]" position="inside">
+            <li name="products_breadcrumb" t-if="page_name == 'my_products'" t-attf-class="breadcrumb-item #{'active ' if not my_products else ''}">
+                <a t-if="my_products" t-attf-href="/my/prodcts">My Products</a>
+                <t t-else="">My Products</t>
+            </li>
+            <li t-if="page_name == 'product_details'" class="breadcrumb-item active">
+                <a t-attf-href="/my/products">My Products</a> / <t t-out="product.name"/>
+            </li>
+        </xpath>
+    </template>
+
+
+
+
+
+
+
+
+</odoo>
