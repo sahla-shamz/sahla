@@ -12,7 +12,7 @@
                 <field name="is_child"/>
 
                 <field name="is_parent"/>
-                <field name="customer_child_ids" widget="contact_chart"/>
+                <field name="customer_child_ids" widget="custom_org_chart"/>
 
 
             </xpath>
