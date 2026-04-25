@@ -29,23 +29,23 @@ class ResPartner(models.Model):
 
 
 
-    def get_contact_hierarchy(self):
-        print("hiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii")
-        hierarchy = {
-            'parent': {
-                'id': self.parent_partner_id.id,
-                'name': self.parent_partner_id.name,
-            } if self.parent_partner_id else False,
-            'self': {
-                'id': self.id,
-                'name': self.name,
-            },
-            'children': [
-                {
-                    'id': child.id,
-                    'name': child.name,
-                } for child in self.customer_child_ids
-            ]
-        }
-
-        return hierarchy
+    # def get_contact_hierarchy(self):
+    #     print("hiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii")
+    #     hierarchy = {
+    #         'parent': {
+    #             'id': self.parent_partner_id.id,
+    #             'name': self.parent_partner_id.name,
+    #         } if self.parent_partner_id else False,
+    #         'self': {
+    #             'id': self.id,
+    #             'name': self.name,
+    #         },
+    #         'children': [
+    #             {
+    #                 'id': child.id,
+    #                 'name': child.name,
+    #             } for child in self.customer_child_ids
+    #         ]
+    #     }
+    #
+    #     return hierarchy
