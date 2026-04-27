@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 from odoo import fields, models, api
 
 class ResPartner(models.Model):
@@ -10,6 +12,7 @@ class ResPartner(models.Model):
 
     @api.depends("parent_partner_id")
     def _compute_is_child(self):
+        """Compute whether the partner is a child customer or not"""
         for rec in self:
             if rec.parent_partner_id:
                 rec.is_child = True
@@ -19,33 +22,10 @@ class ResPartner(models.Model):
 
     @api.depends("parent_partner_id")
     def _compute_is_parent(self):
+        """Compute whether the partner is a parent customer or not"""
         for rec in self:
             if rec.parent_partner_id:
                 rec.parent_partner_id.is_parent = True
             else:
                 rec.is_parent = False
 
-
-
-
-
-    # def get_contact_hierarchy(self):
-    #     print("hiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii")
-    #     hierarchy = {
-    #         'parent': {
-    #             'id': self.parent_partner_id.id,
-    #             'name': self.parent_partner_id.name,
-    #         } if self.parent_partner_id else False,
-    #         'self': {
-    #             'id': self.id,
-    #             'name': self.name,
-    #         },
-    #         'children': [
-    #             {
-    #                 'id': child.id,
-    #                 'name': child.name,
-    #             } for child in self.customer_child_ids
-    #         ]
-    #     }
-    #
-    #     return hierarchy

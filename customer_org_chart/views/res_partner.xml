@@ -8,16 +8,13 @@
         <field name="arch" type="xml">
             <xpath expr="//field[@name='category_id']" position="after">
 
-
                <field name="parent_partner_id" invisible="is_parent"/>
                 <field name="is_child"/>
-
                 <field name="is_parent"/>
-<!--                <field name="customer_child_ids" widget="custom_org_chart" invisible="not is_child and not is_parent"/>-->
 
             </xpath>
 
-                <xpath expr="//notebook" position="before">
+            <xpath expr="//notebook" position="before">
 
                 <group>
                     <group/>
@@ -26,11 +23,11 @@
                             <div class="o_horizontal_separator mt-4 mb-3 text-uppercase fw-bolder small">
                                 Organization Chart
                             </div>
-                            <field name="customer_child_ids" widget="custom_org_chart" invisible="not is_child and not is_parent"/>
+                            <field name="customer_child_ids" widget="custom_org_chart"
+                                   invisible="not is_child and not is_parent"/>
                         </div>
                     </group>
                 </group>
-
 
             </xpath>
         </field>
