@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+
+    <record id="action_order_type" model="ir.actions.act_window">
+        <field name="name">Order Types</field>
+        <field name="res_model">pos.order.type</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+
+    <record id="pos_order_type_list_view" model="ir.ui.view">
+        <field name="name">pos.order.type.list.view</field>
+        <field name="model">pos.order.type</field>
+        <field name="arch" type="xml">
+            <list string="Order Type" editable="bottom">
+                <field name="name"/>
+
+            </list>
+        </field>
+    </record>
+
+
+        <record id="pos_order_type_form_view" model="ir.ui.view">
+        <field name="name">pos.order.type.form.view</field>
+        <field name="model">pos.order.type</field>
+        <field name="arch" type="xml">
+            <form string="Order Type">
+                <sheet>
+                    <group>
+                    <field name="name"/>
+
+                    </group>
+                </sheet>
+
+            </form>
+        </field>
+    </record>
+
+
+
+    <record id="res_config_pos_inherit_form_view" model="ir.ui.view">
+        <field name="name">res.config.pos.form</field>
+        <field name="model">res.config.settings</field>
+        <field name="inherit_id" ref="point_of_sale.res_config_settings_view_form"/>
+        <field name="arch" type="xml">
+
+            <xpath expr="//block[@id='restaurant_section']" position="after">
+
+               <block title="Order Types" id="order_types">
+                   <setting>
+                       <field name="pos_is_enable_order_type"/>
+                       <field name="pos_order_type_id" widget="many2many_tags" invisible="not pos_is_enable_order_type"/>
+                   </setting>
+               </block>
+
+            </xpath>
+
+        </field>
+    </record>
+
+
+
+        <record id="pos_order_form_inherit" model="ir.ui.view">
+        <field name="name">pos.order.form.inherit</field>
+        <field name="model">pos.order</field>
+        <field name="inherit_id" ref="point_of_sale.view_pos_pos_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='customer_count']" position="after">
+                <field name="pos_order_type_id"/>
+            </xpath>
+
+        </field>
+    </record>
+
+
+
+
+    <menuitem id="menu_order_type"
+              name="Order Types"
+              parent="point_of_sale.menu_point_config_product"
+              sequence="20"
+              action="action_order_type"
+              />
+</odoo>
