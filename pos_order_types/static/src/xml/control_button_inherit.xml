@@ -6,6 +6,7 @@
                     t-if="this.pos.config.is_enable_order_type" t-on-click="onClickOrderType">
                 <t t-if="this.currentOrder.pos_order_type_id"><t t-esc="this.currentOrder.pos_order_type_id.name"/>
                 </t>
+
                 <t t-else="">Order Types</t>
             </button>
         </xpath>
