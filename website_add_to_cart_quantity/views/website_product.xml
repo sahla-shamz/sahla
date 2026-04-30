@@ -1,52 +1,47 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <odoo>
         <template id="website_add_to_cart_quantity_template" inherit_id="website_sale.shop_product_buttons">
-        <xpath expr="//button" position="before">
+        <xpath expr="//div[@class='o_wsale_product_action_row']" position="before">
 
-        <div id="add_to_cart_wrap" position="inside">
-            <t t-call="website_sale.product_tile_element_visibility">
-                <t t-set="visible_element_class" t-value="'o_wsale_products_opt_has_cta'"/>
-            <div
-                t-attf-class="css_quantity input-group d-inline-flex order-first align-middle border"
-                contenteditable="false"
-                t-att-data-show-quantity="is_view_active('website_sale.product_quantity')"
-            >
-                <a
-                    t-attf-href="#"
-                    class="css_quantity_minus btn btn-primary pe-2 js_add_cart_json border-0"
-                    aria-label="Remove one"
-                    title="Remove one"
-                    name="remove_one"
-                >
-                    <i class="oi oi-minus text-600 "/>
-                </a>
-                <input
-                    type="text"
-                    t-attf-class="form-control quantity text-center border-0"
-                    data-min="1"
-                    name="add_qty"
-                    t-att-value="1"
-                />
-                <a
-                    t-attf-href="#"
-                    class="css_quantity_plus btn btn-link ps-2 js_add_cart_json border-0"
-                    aria-label="Add one"
-                    title="Add one"
-                >
-                    <i class="oi oi-plus text-600"/>
-                </a>
+            <div class="o_wsale_product_action_row" style="height : 50px; width : 130px;">
+                <div id="add_to_cart_wrap" class="o_wsale_product_action_row btn" position="inside"
+                    style="border-radius: 0; border : 0; background-color: transparent;  height : 30px; width : 130px;">
+
+                    <div
+                        t-attf-class="css_quantity input-group d-inline-flex align-middle"
+                        contenteditable="false"
+                        style="border : 1px solid rgba(214, 210, 212,5); background-color : rgba(214, 210, 212, 6);"
+                        >
+                        <a
+                            t-attf-href="#"
+                            class="css_quantity_minus btn btn-primary pe-2 js_add_cart_json border-0"
+                            aria-label="Remove one"
+                            title="Remove one"
+                            name="remove_one"
+                        >
+                            <i class="oi oi-minus text-600 "/>
+                        </a>
+                        <input
+                            type="text"
+                            t-attf-class="form-control quantity text-center border-0"
+                            data-min="1"
+                            data-max="99"
+                            name="add_qty"
+                            t-att-value="1"
+                        />
+                        <a
+                            t-attf-href="#"
+                            class="css_quantity_plus btn btn-link ps-2 js_add_cart_json border-0"
+                            aria-label="Add one"
+                            title="Add one"
+                        >
+                            <i class="oi oi-plus text-600"/>
+                        </a>
+                    </div>
+                </div>
             </div>
-            </t>
-        </div>
         </xpath>
     </template>
-
-
-
-
-
-
-
 
 
 </odoo>
