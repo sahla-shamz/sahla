@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 {
     "name" : "Website Add to Cart Quantity",
     "summary" : "Website Add to Cart Quantity",
@@ -10,5 +12,7 @@
     ],
     "installable": True,
     "auto_install": False,
-    "application": False
+    "application": False,
+    "license": "LGPL-3",
+
 }
