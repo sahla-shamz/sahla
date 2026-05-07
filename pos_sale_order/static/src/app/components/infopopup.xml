@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<templates id="template" xml:space="preserve">
+    <t t-name="pos_sale_order.InfoPopup">
+        <Dialog title.translate="Create Sale Order">
+
+            <div class="modal-body custom-form-view" >
+
+                   <div class="col justify-content-between align-items-center p-3">
+
+                           <form action="/website/customer/create" method="post">
+                               <div style="height : 40px; width : 300px; display : flex;">
+                                   <span class="p-1">State: </span>
+                                   <select class="p-2" t-model="state.values">
+                                        <option value="draft">Draft</option>
+                                        <option value="confirm">Confirm</option>
+                                   </select>
+                               </div>
+
+
+                               <br/>
+
+                               <div>
+                                    <textarea placeholder="Terms and Conditions" style="height : 100px; width : 900px;"/>
+
+                               </div>
+
+                                <t t-set-slot="footer">
+                                    <button class="btn btn-primary o-default-button" t-on-click="createSaleOrder">Create</button>
+                                    <button class="btn btn-primary o-default-button" t-on-click="discard">Discard</button>
+                                </t>
+
+                           </form>
+
+                   </div>
+
+<!--                   <div class="col d-flex justify-content-between align-items-center p-3">-->
+<!--                    </div>-->
+
+            </div>
+
+        </Dialog>
+    </t>
+</templates>
