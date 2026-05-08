@@ -20,4 +20,56 @@
     </record>
 
 
+
+    <record id="view_order_form_inherit_sale_order" model="ir.ui.view">
+        <field name="name">sale.order.form.inherit.sale</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_form"/>
+        <field name="arch" type="xml">
+
+            <xpath expr="//field[@name='validity_date']" position="after">
+                <field name="is_created_from_pos" invisible="not is_created_from_pos"/>
+                <field name="pos_session_id" invisible="not is_created_from_pos"/>
+            </xpath>
+
+        </field>
+    </record>
+
+
+    <record id="view_order_form_inherit_pos_session" model="ir.ui.view">
+        <field name="name">pos.session.form.inherit</field>
+        <field name="model">pos.session</field>
+        <field name="inherit_id" ref="point_of_sale.view_pos_session_form"/>
+        <field name="arch" type="xml">
+
+            <xpath expr="//button[@name='action_show_payments_list']" position="after">
+                <button class="oe_stat_button" icon="fa-dollar" name="action_sale_list" type="object">
+                    <field name="sale_count" widget="statinfo" string="Sale Orders"/>
+                </button>
+            </xpath>
+
+        </field>
+    </record>
+
+
+
+
+    <record id="view_order_form_inherit_sale_order_search" model="ir.ui.view">
+        <field name="name">sale.order.search.form.inherit</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_sales_order_filter"/>
+        <field name="arch" type="xml">
+            <xpath expr="//filter" position="after">
+                 <filter name="is_created_from_pos" string="Created from PoS" domain="[('is_created_from_pos', '=', True)]"/>
+
+            </xpath>
+            <xpath expr="//group" position="inside">
+                <separator/>
+                <filter name="pos_session" string="PoS Session" context="{'group_by':'pos_session_id'}"/>
+            </xpath>
+
+        </field>
+    </record>
+
+
 </odoo>

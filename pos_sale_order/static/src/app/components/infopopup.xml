@@ -12,7 +12,7 @@
                                    <span class="p-1">State: </span>
                                    <select class="p-2" t-model="state.values">
                                         <option value="draft">Draft</option>
-                                        <option value="confirm">Confirm</option>
+                                        <option value="sale">Confirm</option>
                                    </select>
                                </div>
 
@@ -20,7 +20,7 @@
                                <br/>
 
                                <div>
-                                    <textarea placeholder="Terms and Conditions" style="height : 100px; width : 900px;"/>
+                                    <textarea t-model="this.state.desc" placeholder="Terms and Conditions" style="height : 100px; width : 900px;"/>
 
                                </div>
 
