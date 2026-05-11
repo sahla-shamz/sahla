@@ -4,8 +4,10 @@
         <xpath
             expr="//t[@t-if='props.showRemainingButtons']/div/button[hasclass('o_pricelist_button')]"
             position="after">
-            <button t-att-class="buttonClass" t-on-click="onClickCreateSaleOrder">
-                <i class="fa fa-link me-1" role="img" aria-label="Create Sale Order" title="Create Sale Order" /> Create Sale Order
+            <button t-att-class="buttonClass" t-on-click="onClickCreateSaleOrder"
+                    t-if="this.pos.config.is_create_sale_order">
+                <i class="fa fa-link me-1" role="img" aria-label="Create Sale Order"
+                   title="Create Sale Order" /> Create Sale Order
             </button>
         </xpath>
     </t>

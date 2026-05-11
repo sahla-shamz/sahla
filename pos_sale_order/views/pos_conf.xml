@@ -9,16 +9,13 @@
         <field name="arch" type="xml">
 
             <xpath expr="//block[@id='pos_interface_section']" position="inside">
-
                    <setting help="Create Sales Order from PoS Screen">
                        <field name="pos_is_create_sale_order"/>
                    </setting>
-
             </xpath>
 
         </field>
     </record>
-
 
 
     <record id="view_order_form_inherit_sale_order" model="ir.ui.view">
@@ -51,8 +48,7 @@
         </field>
     </record>
 
-
-
+    
 
     <record id="view_order_form_inherit_sale_order_search" model="ir.ui.view">
         <field name="name">sale.order.search.form.inherit</field>
@@ -60,8 +56,8 @@
         <field name="inherit_id" ref="sale.view_sales_order_filter"/>
         <field name="arch" type="xml">
             <xpath expr="//filter" position="after">
-                 <filter name="is_created_from_pos" string="Created from PoS" domain="[('is_created_from_pos', '=', True)]"/>
-
+                 <filter name="is_created_from_pos" string="Created from PoS"
+                         domain="[('is_created_from_pos', '=', True)]"/>
             </xpath>
             <xpath expr="//group" position="inside">
                 <separator/>
@@ -70,6 +66,5 @@
 
         </field>
     </record>
-
 
 </odoo>

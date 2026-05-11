@@ -5,36 +5,35 @@
 
             <div class="modal-body custom-form-view" >
 
-                   <div class="col justify-content-between align-items-center p-3">
+               <div class="col justify-content-between align-items-center p-3">
 
-                           <form action="/website/customer/create" method="post">
-                               <div style="height : 40px; width : 300px; display : flex;">
-                                   <span class="p-1">State: </span>
-                                   <select class="p-2" t-model="state.values">
-                                        <option value="draft">Draft</option>
-                                        <option value="sale">Confirm</option>
-                                   </select>
-                               </div>
+                   <form action="/website/customer/create" method="post">
+                       <div style="height : 40px; width : 300px; display : flex;">
+                           <span class="p-1">State: </span>
+                           <select class="p-2" t-model="state.values">
+                                <option value="draft">Draft</option>
+                                <option value="sale">Confirm</option>
+                           </select>
+                       </div>
 
+                       <br/>
 
-                               <br/>
+                       <div>
+                            <textarea t-model="this.state.desc" placeholder="Terms and Conditions"
+                                      style="height : 100px; width : 900px;"/>
 
-                               <div>
-                                    <textarea t-model="this.state.desc" placeholder="Terms and Conditions" style="height : 100px; width : 900px;"/>
+                       </div>
 
-                               </div>
+                        <t t-set-slot="footer">
+                            <button class="btn btn-primary o-default-button" t-on-click="createSaleOrder">
+                                Create</button>
+                            <button class="btn btn-primary o-default-button" t-on-click="discard">
+                                Discard</button>
+                        </t>
 
-                                <t t-set-slot="footer">
-                                    <button class="btn btn-primary o-default-button" t-on-click="createSaleOrder">Create</button>
-                                    <button class="btn btn-primary o-default-button" t-on-click="discard">Discard</button>
-                                </t>
+                   </form>
 
-                           </form>
-
-                   </div>
-
-<!--                   <div class="col d-flex justify-content-between align-items-center p-3">-->
-<!--                    </div>-->
+               </div>
 
             </div>
 
