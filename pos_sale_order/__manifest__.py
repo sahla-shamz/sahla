@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 {
     "name" : "POS Sale Order",
     "summary" : "POS Sale Order",
@@ -17,6 +18,10 @@
             "pos_sale_order/static/src/xml/control_button_inherit.xml",
 
         ]
-    }
+    },
+    "installable" : True,
+    "auto_install" : False,
+    "application" : False,
+    "license" : "LGPL-3"
 
 }

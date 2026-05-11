@@ -9,10 +9,11 @@ import { _t } from "@web/core/l10n/translation";
 export class InfoPopup extends Component {
      static template = "pos_sale_order.InfoPopup";
      static components = { Dialog };
+
      setup(){
         this.pos= usePos();
         this.state = useState({ values : 'draft', desc : "" })
-         this.orm = useService("orm");
+        this.orm = useService("orm");
         this.dialog = useService("dialog")
      }
 
@@ -21,35 +22,35 @@ export class InfoPopup extends Component {
     }
 
 
-    async createSaleOrder() {
-
+    async createSaleOrder()
+    {
         const session = this.pos.openOrder.session_id.id
         const description = this.state.desc
         const status = this.state.values
         const order_lines = this.pos.openOrder.lines
-        console.log("order liness", order_lines)
-        console.log("pos", this.pos)
-        var arr_products = []
-        for(const i of order_lines)
+        if(this.pos.openOrder.pricelist_id)
         {
-            // console.log("iiiiiiiiii", i.tax_ids)
-
+            var pricelist = this.pos.openOrder.pricelist_id.id
+        }
+        else{
+            var pricelist = false
+        }
+        var arr_products = []
+        for(const line of order_lines)
+        {
             var taxes =[]
-            for (const j of i.tax_ids)
+            for (const tax of line.tax_ids)
             {
-                taxes.push(j.id)
-                // console.log("kkkkkkkkkkk",j)
+                taxes.push(tax.id)
             }
 
-            console.log("taxes", taxes)
-
-            arr_products.push({'id' : i.product_id.id,
-                            "qty" : i.quantityStr.unitPart,
-                            'price' : i.displayPriceUnitExcl,
-                            'tax' : taxes})
-
+            arr_products.push({'id' : line.product_id.id,
+                            "qty" : line.quantityStr.unitPart,
+                            'price' : line.price_unit,
+                            'tax' : taxes,
+                            'discount' : line.discount})
         }
-        console.log("arrrrr", arr_products)
+
 
         if (! this.pos.openOrder.partner_id)
         {
@@ -69,15 +70,18 @@ export class InfoPopup extends Component {
         }
         else {
             var partner = this.pos.openOrder.partner_id.id
-            const order_ref = await this.orm.call("sale.order", "create_sale_order",[status, arr_products, partner, description, session], {});
-
+            const order_ref = await this.orm.call("sale.order", "create_sale_order",[status, arr_products, partner,
+                description, session, pricelist], {});
+            for (const line of this.pos.openOrder.lines)
+            {
+                this.pos.openOrder.removeOrderline(line)
+            }
             this.props.close()
             this.dialog.add(AlertDialog, {
                 title : _t("Sale Order Created"),
                 body: _t(order_ref),
             });
         }
-
 
     }
 
