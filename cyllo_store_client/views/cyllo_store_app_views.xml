@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_cyllo_store_app_kanban" model="ir.ui.view">
+        <field name="name">cyllo.store.app.kanban</field>
+        <field name="model">cyllo.store.app</field>
+        <field name="arch" type="xml">
+            <kanban create="0" edit="0" delete="0" class="o_modules_kanban">
+                <field name="icon_url"/>
+                <field name="technical_name"/>
+                <field name="is_installed"/>
+                <templates>
+                    <t t-name="kanban-box">
+                        <div class="oe_module_vignette">
+                            <img t-att-src="record.icon_url.value" class="oe_module_icon" alt="Icon"/>
+                            <div class="oe_module_desc">
+                                <div class="o_dropdown_kanban dropdown">
+                                    <a class="dropdown-toggle o-no-caret btn" role="button" data-bs-toggle="dropdown" href="#">
+                                        <span class="fa fa-ellipsis-v"/>
+                                    </a>
+                                    <div class="dropdown-menu" role="menu">
+                                        <a type="object" name="action_learn_more" role="menuitem" class="dropdown-item">Learn More</a>
+                                    </div>
+                                </div>
+                                <h4 class="o_kanban_record_title"><field name="name"/></h4>
+                                <p class="oe_module_name"><code><t t-esc="record.technical_name.value"/></code></p>
+                                <div class="oe_module_action" t-if="!selection_mode">
+                                    <button t-if="!record.is_installed.raw_value" type="object"
+                                            name="action_install" class="btn btn-primary btn-sm"
+                                            confirm="This downloads the app from the Cyllo App Store and activates it on this database. Continue?">
+                                        Activate
+                                    </button>
+                                    <span t-if="record.is_installed.raw_value" class="badge text-bg-success">Installed</span>
+                                </div>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <record id="view_cyllo_store_app_search" model="ir.ui.view">
+        <field name="name">cyllo.store.app.search</field>
+        <field name="model">cyllo.store.app</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name" string="App" filter_domain="['|', '|', ('name', 'ilike', self), ('technical_name', 'ilike', self), ('summary', 'ilike', self)]"/>
+                <field name="author"/>
+                <field name="category"/>
+                <filter name="not_installed" string="Not Installed" domain="[('is_installed', '=', False)]"/>
+                <filter name="installed" string="Installed" domain="[('is_installed', '=', True)]"/>
+                <filter name="top_apps" string="Top Apps" domain="[('top_apps', '=', True)]"/>
+                <searchpanel>
+                    <field name="panel_type" string="Apps" icon="fa-folder" select="one" enable_counters="0"/>
+                    <field name="category_id" string="Categories" icon="fa-folder" select="one" enable_counters="1"/>
+                </searchpanel>
+                <group expand="0" string="Group By">
+                    <filter name="group_category" string="Category" context="{'group_by': 'category'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_cyllo_store_app" model="ir.actions.act_window">
+        <field name="name">Apps</field>
+        <field name="res_model">cyllo.store.app</field>
+        <field name="view_mode">kanban</field>
+        <field name="search_view_id" ref="view_cyllo_store_app_search"/>
+        <field name="context">{'searchpanel_default_panel_type': 'cyllo_store'}</field>
+    </record>
+
+    <!-- Menu entry opens through a server action so the list is refreshed
+         from apps.cyllo.com on every click. -->
+    <record id="action_open_cyllo_store" model="ir.actions.server">
+        <field name="name">Cyllo App Store</field>
+        <field name="model_id" ref="model_cyllo_store_app"/>
+        <field name="state">code</field>
+        <field name="code">action = model.action_open_store()</field>
+    </record>
+
+    <!-- Same parent as the standard "Industries" entry; adjust sequence/parent
+         if your Cyllo base uses a different one. -->
+    <menuitem id="menu_cyllo_store" name="Cyllo App Store"
+              parent="base.menu_management" sequence="60"
+              action="action_open_cyllo_store" groups="base.group_system"/>
+</odoo>
