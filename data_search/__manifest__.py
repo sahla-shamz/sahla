@@ -2,7 +2,7 @@
 
 {
     "name": "Data Search",
-    "version": "19.0.1.0.0",
+    "version": "17.0.1.0.0",
     "summary" : "Data Search",
     "depends":[
         "base","base_setup"
