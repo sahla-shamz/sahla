@@ -98,24 +98,39 @@ class CylloStoreApp(models.Model):
 
     @api.model
     def _target_dir(self):
-        """Folder the downloaded modules are extracted into. It has to be on
-        the addons path, otherwise Cyllo would never see the new modules."""
-        path = self.env['ir.config_parameter'].sudo().get_param(
+        """Folder the downloaded modules are extracted into.
+
+        Order: the 'cyllo_store.addons_dir' parameter (no fallback), else the
+        folder holding this module, else a 'marketplace' folder created next
+        to it (e.g. /mnt/extra-addons/marketplace next to .../git_addons).
+        """
+        param = self.env['ir.config_parameter'].sudo().get_param(
             'cyllo_store.addons_dir')
-        if not path:
-            module_path = get_module_path('cyllo_store_client')
-            path = os.path.dirname(module_path)
-        path = os.path.realpath(path)
+        if param:
+            candidates = [param]
+        else:
+            parent = os.path.dirname(get_module_path('cyllo_store_client'))
+            candidates = [parent, os.path.join(os.path.dirname(parent),
+                                               'marketplace')]
         known = {os.path.realpath(p) for p in addons.__path__}
-        if path not in known:
-            raise UserError(_(
-                "'%s' is not in the addons path, so modules extracted there "
-                "would not be found. Fix the 'cyllo_store.addons_dir' system "
-                "parameter.", path))
-        if not os.access(path, os.W_OK):
-            raise UserError(_("The folder '%s' is not writable by the "
-                              "Cyllo server.", path))
-        return path
+        for path in candidates:
+            path = os.path.realpath(path)
+            if not os.path.isdir(path):
+                try:
+                    os.makedirs(path)
+                except OSError:
+                    continue
+            if not os.access(path, os.W_OK):
+                continue
+            if path not in known:
+                # visible to this process right away; to survive restarts and
+                # other workers the folder must also be in addons_path
+                addons.__path__.append(path)
+                _logger.warning("Cyllo store: %s is not in addons_path, "
+                                "add it to the server configuration.", path)
+            return path
+        raise UserError(_("No writable folder found for new apps. Tried: %s",
+                          ', '.join(candidates)))
 
     # ------------------------------------------------------------------
     # sync
