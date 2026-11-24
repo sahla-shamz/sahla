@@ -54,6 +54,7 @@ class CylloStoreApp(models.Model):
     depends = fields.Char(readonly=True)
     icon_url = fields.Char(readonly=True)
     top_apps = fields.Boolean(readonly=True)
+    verified = fields.Boolean(readonly=True)
     download_count = fields.Integer(readonly=True)
     is_installed = fields.Boolean(compute='_compute_is_installed',
                                   search='_search_is_installed')
@@ -106,8 +107,7 @@ class CylloStoreApp(models.Model):
         else '<data_dir>/marketplace_addons' (the data dir is normally the
         one place the Odoo user can always write to).
         """
-        param = self.env['ir.config_parameter'].sudo().get_param(
-            'cyllo_store.addons_dir')
+        param = self.env['ir.config_parameter'].sudo().get_param('cyllo_store.addons_dir')
         if param:
             candidates = [param]
         else:
@@ -194,6 +194,7 @@ class CylloStoreApp(models.Model):
                 'live_test_url': item.get('live_test_url'),
                 'depends': ', '.join(item.get('depends') or []),
                 'top_apps': item.get('top_apps'),
+                'verified': bool(item.get('verified')),
                 'download_count': item.get('download_count'),
                 'icon_url': (base + icon) if icon else DEFAULT_ICON,
             }

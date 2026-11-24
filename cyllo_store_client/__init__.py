@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 from . import models
 
+
 def post_load():
     """Re-register the folders apps are installed into at server start, so
     apps activated from the store keep loading after a restart."""

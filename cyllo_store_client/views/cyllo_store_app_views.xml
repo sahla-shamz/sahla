@@ -4,16 +4,15 @@
         <field name="name">cyllo.store.app.kanban</field>
         <field name="model">cyllo.store.app</field>
         <field name="arch" type="xml">
-            <kanban create="0" edit="0" delete="0" class="o_modules_kanban">
+            <kanban create="0" edit="0" delete="0" class="o_modules_kanban cyllo_store_kanban">
                 <field name="icon_url"/>
                 <field name="technical_name"/>
                 <field name="is_installed"/>
+                <field name="verified"/>
                 <templates>
                     <t t-name="kanban-box">
                         <div class="oe_module_vignette">
-                            <img t-att-src="record.icon_url.value" class="oe_module_icon" alt="Icon"/>
-                            <div class="oe_module_desc">
-                                <div class="o_dropdown_kanban dropdown">
+                                <div class="o_dropdown_kanban dropdown cyllo_store_dots">
                                     <a class="dropdown-toggle o-no-caret btn" role="button" data-bs-toggle="dropdown" href="#">
                                         <span class="fa fa-ellipsis-v"/>
                                     </a>
@@ -21,7 +20,12 @@
                                         <a type="object" name="action_learn_more" role="menuitem" class="dropdown-item">Learn More</a>
                                     </div>
                                 </div>
+                            <img t-att-src="record.icon_url.value" class="oe_module_icon" alt="Icon"/>
+                            <div class="oe_module_desc">
                                 <h4 class="o_kanban_record_title"><field name="name"/></h4>
+                                <span t-if="record.verified.raw_value" class="cyllo_verified" title="Reviewed and approved by the Cyllo team">
+                                    <i class="fa fa-check-circle"/> Verified
+                                </span>
                                 <p class="oe_module_name"><code><t t-esc="record.technical_name.value"/></code></p>
                                 <div class="oe_module_action" t-if="!selection_mode">
                                     <button t-if="!record.is_installed.raw_value" type="object"
@@ -49,6 +53,7 @@
                 <field name="category"/>
                 <filter name="not_installed" string="Not Installed" domain="[('is_installed', '=', False)]"/>
                 <filter name="installed" string="Installed" domain="[('is_installed', '=', True)]"/>
+                <filter name="verified" string="Verified" domain="[('verified', '=', True)]"/>
                 <filter name="top_apps" string="Top Apps" domain="[('top_apps', '=', True)]"/>
                 <searchpanel>
                     <field name="panel_type" string="Apps" icon="fa-folder" select="one" enable_counters="0"/>
@@ -67,6 +72,14 @@
         <field name="view_mode">kanban</field>
         <field name="search_view_id" ref="view_cyllo_store_app_search"/>
         <field name="context">{'searchpanel_default_panel_type': 'cyllo_store'}</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_empty_folder">
+                No module found!
+            </p>
+            <p>
+                You should try other search criteria.
+            </p>
+        </field>
     </record>
 
     <!-- Menu entry opens through a server action so the list is refreshed
@@ -78,9 +91,4 @@
         <field name="code">action = model.action_open_store()</field>
     </record>
 
-    <!-- Same parent as the standard "Industries" entry; adjust sequence/parent
-         if your Cyllo base uses a different one. -->
-    <menuitem id="menu_cyllo_store" name="Cyllo App Store"
-              parent="base.menu_management" sequence="60"
-              action="action_open_cyllo_store" groups="base.group_system"/>
 </odoo>

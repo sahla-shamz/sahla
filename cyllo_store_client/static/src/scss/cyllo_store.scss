@@ -1,0 +1,44 @@
+.cyllo_store_kanban {
+    .oe_module_vignette {
+        position: relative;
+    }
+
+    // three-dot menu: top-right corner of the card, like the standard Apps cards
+    .cyllo_store_dots {
+        position: absolute;
+        top: 6px;
+        right: 8px;
+        z-index: 2;
+
+        > a {
+            padding: 2px 8px;
+            font-size: 1.1rem;
+            line-height: 1;
+            color: #6c757d;
+
+            &:hover {
+                color: #212529;
+            }
+        }
+    }
+
+    // "Installed" badge: same height as the Activate button
+    .oe_module_action .badge {
+        display: inline-flex;
+        align-items: center;
+        font-size: 0.85rem;
+        font-weight: 500;
+        padding: 0.35rem 0.7rem;
+    }
+
+    // "Verified" mark next to the app name
+    .cyllo_verified {
+        display: inline-flex;
+        align-items: center;
+        gap: 4px;
+        margin-bottom: 2px;
+        font-size: 0.8rem;
+        font-weight: 600;
+        color: #1e7e34;
+    }
+}

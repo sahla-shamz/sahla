@@ -18,6 +18,7 @@
     'assets': {
         'web.assets_backend': [
             'cyllo_store_client/static/src/js/search_panel_patch.js',
+            'cyllo_store_client/static/src/scss/cyllo_store.scss',
         ],
     },
     'post_load': 'post_load',
