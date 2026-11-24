@@ -12,6 +12,7 @@ import requests
 from odoo import _, addons, api, fields, models
 from odoo.exceptions import AccessError, UserError
 from odoo.modules.module import get_module_path
+from odoo.tools import config
 from odoo.tools.safe_eval import safe_eval
 
 _logger = logging.getLogger(__name__)
@@ -101,8 +102,9 @@ class CylloStoreApp(models.Model):
         """Folder the downloaded modules are extracted into.
 
         Order: the 'cyllo_store.addons_dir' parameter (no fallback), else the
-        folder holding this module, else a 'marketplace' folder created next
-        to it (e.g. /mnt/extra-addons/marketplace next to .../git_addons).
+        folder holding this module, else a 'marketplace' folder next to it,
+        else '<data_dir>/marketplace_addons' (the data dir is normally the
+        one place the Odoo user can always write to).
         """
         param = self.env['ir.config_parameter'].sudo().get_param(
             'cyllo_store.addons_dir')
@@ -110,17 +112,22 @@ class CylloStoreApp(models.Model):
             candidates = [param]
         else:
             parent = os.path.dirname(get_module_path('cyllo_store_client'))
-            candidates = [parent, os.path.join(os.path.dirname(parent),
-                                               'marketplace')]
+            candidates = [
+                parent,
+                os.path.join(os.path.dirname(parent), 'marketplace'),
+                os.path.join(config['data_dir'], 'marketplace_addons'),
+            ]
         known = {os.path.realpath(p) for p in addons.__path__}
+        problems = []
         for path in candidates:
             path = os.path.realpath(path)
-            if not os.path.isdir(path):
-                try:
-                    os.makedirs(path)
-                except OSError:
-                    continue
+            try:
+                os.makedirs(path, exist_ok=True)
+            except OSError as exc:
+                problems.append('%s (%s)' % (path, exc.strerror))
+                continue
             if not os.access(path, os.W_OK):
+                problems.append('%s (not writable)' % path)
                 continue
             if path not in known:
                 # visible to this process right away; to survive restarts and
@@ -130,7 +137,7 @@ class CylloStoreApp(models.Model):
                                 "add it to the server configuration.", path)
             return path
         raise UserError(_("No writable folder found for new apps. Tried: %s",
-                          ', '.join(candidates)))
+                          '; '.join(problems)))
 
     # ------------------------------------------------------------------
     # sync

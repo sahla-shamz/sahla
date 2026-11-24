@@ -20,6 +20,7 @@
             'cyllo_store_client/static/src/js/search_panel_patch.js',
         ],
     },
+    'post_load': 'post_load',
     'license': 'LGPL-3',
     'installable': True,
     'auto_install': False,
