@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Account Invoice Merge</title>
+    <link
+            rel="stylesheet"
+            href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css"
+    />
+    <link
+            href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css"
+            rel="stylesheet"
+    />
+    <link
+            rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
+            integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA=="
+            crossorigin="anonymous"
+            referrerpolicy="no-referrer"
+    />
+    <link
+            rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css"
+    />
+    <link
+            href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+            rel="stylesheet"
+            integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+            crossorigin="anonymous"
+    />
+    <link rel="stylesheet" href="css/main.css"/>
+</head>
+<body class="">
+<!-- main index -->
+<div class="container">
+    <div class="py-4">
+        <div class="row">
+            <div class="col-md-8 col-lg-8 p-2" style="width:100%;">
+                <!-- badge -->
+                <div style="padding-top: 8px; text-align: end; padding-bottom: 12px">
+                    <div class="badge" style="background-color: #604058; font-weight: 500 ;font-size: 1rem;padding: 0.5rem 1rem;">
+                        <i class="fa-solid fa fa-check"></i>
+                        <span>Odoo</span>
+                    </div>
+                    <div class="badge" style="background-color: #9ea700; font-weight: 500; font-size: 1rem;padding: 0.5rem 1rem;">
+                        <i class="fa-solid fa fa-check"></i>
+                        <span>Cyllo</span>
+                    </div>
+                </div>
+                <!-- end -->
+                <!-- banner-section -->
+                <section>
+                    <img src="./images/Account-Invoice-merge.jpg"
+                         class="img-fluid" style="width:100%;"/>
+                </section>
+                <!-- end -->
+                <!-- Introduction -->
+                <section class="my-4">
+                    <h1
+                            class=""
+                            style="
+                  color: #9ea700;
+                  font-size: 34px;
+                  font-weight: 600;
+                  margin-bottom: 20px;
+                "
+                    >
+                        Account Invoice Merge
+                    </h1>
+                    <p style="
+                  color: #828176;
+                  font-size: 16px;
+                  margin-bottom: 20px;
+                  line-height: 1.8rem;
+                ">
+                        This addon helps us to merge invoices easily.
+                        This module adds an action in the list view of Invoice
+                        to merge invoices with same partner.
+                    </p>
+                </section>
+                <!-- end -->
+                <section>
+                    <!-- pills -->
+                    <ul
+                            class="nav nav-pills nav-justified my-4"
+                            id="myTab"
+                            role="tablist"
+                            style="gap: 20px"
+                    >
+                        <li class="nav-item" role="presentation"
+                            style="background-color: #feffee; color: #9ea700">
+                            <a
+                                    class="nav-link active"
+                                    id="active-tab"
+                                    data-bs-toggle="pill"
+                                    href="#active"
+                                    role="tab"
+                                    aria-controls="active"
+                                    aria-selected="true"
+                                    style="color: #9ea700"
+                            >Overview</a
+                            >
+                        </li>
+                        <li
+                                class="nav-item"
+                                role="presentation"
+                                style="background-color: #feffee; color: #9ea700"
+                        >
+                            <a
+                                    class="nav-link"
+                                    id="long-tab"
+                                    data-bs-toggle="pill"
+                                    href="#long"
+                                    role="tab"
+                                    aria-controls="long"
+                                    aria-selected="false"
+                                    style="color: #9ea700"
+                            >Features</a
+                            >
+                        </li>
+                        <li
+                                class="nav-item"
+                                role="presentation"
+                                style="background-color: #feffee; color: #9ea700"
+                        >
+                            <a
+                                    class="nav-link"
+                                    id="link-tab"
+                                    data-bs-toggle="pill"
+                                    href="#link"
+                                    role="tab"
+                                    aria-controls="link"
+                                    aria-selected="false"
+                                    style="color: #9ea700"
+                            >Screenshots</a
+                            >
+                        </li>
+                        <li
+                                class="nav-item"
+                                role="presentation"
+                                style="background-color: #feffee; color: #9ea700"
+                        >
+                            <a
+                                    class="nav-link disabled"
+                                    id="disabled-tab"
+                                    data-bs-toggle="pill"
+                                    href="#disabled"
+                                    role="tab"
+                                    aria-controls="disabled"
+                                    aria-selected="false"
+                                    style="color: #9ea700"
+                            >Released Notes</a
+                            >
+                        </li>
+                    </ul>
+                    <!-- end -->
+                    <div class="tab-content" id="myTabContent">
+                        <!-- overview div -->
+                        <div
+                                class="tab-pane fade show active"
+                                id="active"
+                                role="tabpanel"
+                                aria-labelledby="active-tab"
+                        >
+                            <p
+                                    style="
+                      color: #828176;
+                      font-size: 16px;
+                      margin-bottom: 20px;
+                      line-height: 1.8rem;
+                    "
+                            >
+                                This addon helps us to merge invoices easily.
+                            </p>
+                            <div class="p-3"
+                                 style="background-color: #9ea700; color: #fff">
+                                <h4 class="font-weight-bold">Key Features</h4>
+                                <ul class="ms-3 ps-0 mb-0">
+                                    <li class="py-2">Merge Similar Invoices
+                                    </li>
+                                    <li class="py-2">Automatic State Management
+                                    </li>
+                                    <li class="py-2">User Permissions
+                                    </li>
+                                    <li class="py-2">User-Friendly Interface
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <!-- end -->
+                        <!-- features -->
+
+                        <div class="tab-pane fade" id="long" role="tabpanel"
+                             aria-labelledby="long-tab">
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <div class="card" style="
+                          background-color: #f6f6f6;
+                          border-radius: 40px;
+                          padding: 16px;
+                          min-height: 256px;
+                        ">
+                                        <div class="card-body">
+                                            <h5 class="card-title" style="
+                              border-bottom: 1px solid #d8d8d8;
+                              margin-bottom: 20px;
+                              padding-bottom: 20px;
+                              font-size: 24px;
+                              font-weight: 700;
+                              line-height: 32px;
+                            ">
+                                                Account invoice merge
+                                            </h5>
+                                            <p class="card-text"
+                                               style="color: #828176; line-height: 1.8rem">
+                                                This module facilitates the merging of multiple invoices in draft state that share the same partner into a single invoice, and cancels those multiple invoices
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                                 <div class="col-md-6 mb-3">
+                                    <div class="card" style="
+                          background-color: #f6f6f6;
+                          border-radius: 40px;
+                          padding: 16px;
+                          min-height: 256px;
+                        ">
+                                        <div class="card-body">
+                                            <h5 class="card-title" style="
+                              border-bottom: 1px solid #d8d8d8;
+                              margin-bottom: 20px;
+                              padding-bottom: 20px;
+                              font-size: 24px;
+                              font-weight: 700;
+                              line-height: 32px;
+                            ">
+                                                Invoice Merge Conditions
+                                            </h5>
+                                            <p class="card-text"
+                                               style="color: #828176; line-height: 1.8rem">
+                                                Make sure:
+                                                <ul class="ms-3 ps-0 mb-0">
+                                    <li class="py-2" style="color: #828176; line-height: 1.8rem">Type should be the same
+                                        (Customer Invoice, Supplier Invoice,
+                                        Customer Refund or
+                                        Supplier Refund)
+                                    </li>
+                                    <li class="py-2" style="color: #828176; line-height: 1.8rem">Partner should be the same
+                                    </li>
+                                    <li class="py-2" style="color: #828176; line-height: 1.8rem">Currency should be the same
+                                    </li>
+                                    <li class="py-2" style="color: #828176; line-height: 1.8rem">Account receivable account
+                                        should be the same
+                                    </li>
+                                </ul>
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- screenshots -->
+                        <div class="tab-pane fade" id="link" role="tabpanel"
+                             aria-labelledby="link-tab">
+                            <div class="my-3">
+                                <div>
+                                    <div>
+                                        <div style="
+                            background-color: #feffeb;
+                            border-radius: 20px;
+                            padding: 30px;
+                          ">
+                                            <div class="d-none d-md-block"
+                                                 style="
+                              color: #121212;
+                              position: relative;
+                              top: -9%;
+                              text-align: left;
+                              left: unset;
+                              right: unset;
+                              padding: 10px 30px;
+                            ">
+                                                <h5 style="font-size: 28px; font-weight: 600">
+                                                    Invoice Merge
+                                                </h5>
+                                                <p style="font-size: 14px; color: #828176">
+                                                    Go to a invoice tree view,
+                                                    select several invoices and
+                                                    click expand the action
+                                                    button and click ‘Merge
+                                                    Partner Invoice’.
+                                                </p>
+                                            </div>
+                                            <img src="images/11.png"
+                                                 class="d-block w-100" alt="..."
+                                                 style="padding: 0px 30px 80px 30px"/>
+                                        </div>
+                                    </div>
+                                    <div style="
+                            background-color: #feffeb;
+                            border-radius: 20px;
+                            padding: 30px;
+                          ">
+                                        <div class="d-none d-md-block"
+                                             style="
+                              color: #121212;
+                              position: relative;
+                              top: -9%;
+                              text-align: left;
+                              left: unset;
+                              right: unset;
+                              padding: 10px 30px;
+                            ">
+                                            <h5 style="font-size: 28px; font-weight: 600">
+                                                Set invoice Date
+                                            </h5>
+                                            <p style="font-size: 14px; color: #828176">
+                                                Upon clicking 'Merge Partner
+                                                Invoice', a popup displays the
+                                                necessary conditions to be
+                                                checked before merging invoices,
+                                                along with the option to set an
+                                                invoice date for the merged
+                                                invoices.
+                                            </p>
+                                        </div>
+                                        <img src="images/22.png"
+                                             class="d-block w-100" alt="..."
+                                             style="padding: 0px 30px 80px 30px"/>
+                                    </div>
+                                    <div style="
+                            background-color: #feffeb;
+                            border-radius: 20px;
+                            padding: 30px;
+                          ">
+                                        <div class="d-none d-md-block"
+                                             style="
+                              color: #121212;
+                              position: relative;
+                              top: -9%;
+                              text-align: left;
+                              left: unset;
+                              right: unset;
+                              padding: 10px 30px;
+                            ">
+                                            <h5 style="font-size: 28px; font-weight: 600">
+                                                Merged Invoices
+                                            </h5>
+                                            <p style="font-size: 14px; color: #828176">
+                                               When 'Merge Invoices' is clicked within the popup, the selected invoices will be merged into a single invoice, and the state of the merged invoices will be changed to 'cancelled'.
+                                            </p>
+                                        </div>
+                                        <img src="images/33.png"
+                                             class="d-block w-100" alt="..."
+                                             style="padding: 0px 30px 80px 30px"/>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="tab-pane fade" id="disabled" role="tabpanel"
+                         aria-labelledby="disabled-tab">
+                        Disabled tab content
+                    </div>
+                </section>
+            </div>
+        </div>
+        <div class="col-md-4 col-lg-8 p-2"></div>
+        <div class="" style="height: 1px; background-color: #9ea700"></div>
+        <!-- accordian -->
+        <section class="my-5 p-0">
+            <div class="accordion" id="accordionPanelsStayOpenExample">
+                <div class="accordion-item mb-4 border-0">
+                    <h2 class="accordion-header"
+                        id="panelsStayOpen-headingOne">
+                        <a
+                                class="accordion-button"
+                                type="button"
+                                data-bs-toggle="collapse"
+                                data-bs-target="#panelsStayOpen-collapseOne"
+                                aria-expanded="true"
+                                aria-controls="panelsStayOpen-collapseOne"
+                                style="
+                                    background-color: #fefff1;
+                                    color: #9ea700;
+                                    font-weight: 600;
+                                    padding: 20px;
+                                    font-size: 20px;
+                                    text-decoration:none;
+                                  "
+                        >Installation
+                        </a>
+                    </h2>
+                    <div
+                            id="panelsStayOpen-collapseOne"
+                            class="accordion-collapse collapse show"
+                            aria-labelledby="panelsStayOpen-headingOne"
+                            style="background-color: #fefff1"
+                    >
+                        <div class="accordion-body" style="color: #828176">
+                            To install the "account_invoice_merge" module,
+                            you simply need to place the module in your
+                            addons directory.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+<script
+        src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+        crossorigin="anonymous"
+></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
+</body>
+</html>

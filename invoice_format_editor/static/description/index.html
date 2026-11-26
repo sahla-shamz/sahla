@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Invoice Format Editor</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css"/>
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet"/>
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
+          integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA=="
+          crossorigin="anonymous"
+          referrerpolicy="no-referrer"/>
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css"/>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+          rel="stylesheet"
+          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+          crossorigin="anonymous"/>
+    <link rel="stylesheet" href="css/main.css"/>
+</head>
+<body class="">
+<!-- main index -->
+<div class="container">
+    <div class="py-4">
+        <div class="row">
+            <div class="col-md-8 col-lg-8 p-2 w-100">
+                <!-- badge -->
+                <div style="padding-top: 8px; text-align: end; padding-bottom: 12px">
+                    <div class="badge" style="background-color: #604058; font-weight: 500 ;font-size: 1rem;padding: 0.5rem 1rem;">
+                        <i class="fa-solid fa fa-check"></i>
+                        <span>Odoo</span>
+                    </div>
+                    <div class="badge" style="background-color: #9ea700; font-weight: 500; font-size: 1rem;padding: 0.5rem 1rem;">
+                        <i class="fa-solid fa fa-check"></i>
+                        <span>Cyllo</span>
+                    </div>
+                </div>
+                <!-- end -->
+                <!-- banner-section -->
+                <section>
+                    <img src="./images/index-banner.jpg" class="img-fluid w-100"/>
+                </section>
+                <!-- end -->
+                <!-- Introduction -->
+                <section class="my-4">
+                    <h1 class="" style="color: #9ea700;font-size: 34px;font-weight: 600;margin-bottom: 20px;">
+                        Invoice Format Editor
+                    </h1>
+                    <p style="color: #828176;font-size: 16px; margin-bottom: 20px; line-height: 1.8rem;">
+                        Invoice Format Editor module is designed to offer customization options
+                        for invoice formatting. It likely caters to businesses
+                        seeking to tailor their invoices to their specific branding and
+                        preferences.
+                    </p>
+                </section>
+                <!-- end -->
+                <section>
+                    <!-- pills -->
+                    <ul class="nav nav-pills nav-justified my-4"
+                        id="myTab"
+                        role="tablist"
+                        style="gap: 20px">
+                        <li class="nav-item" role="presentation"
+                            style="background-color: #feffee; color: #9ea700">
+                            <a class="nav-link active"
+                               id="active-tab"
+                               data-bs-toggle="pill"
+                               href="#active"
+                               role="tab"
+                               aria-controls="active"
+                               aria-selected="true"
+                               style="color: #9ea700"
+                            >Overview</a>
+                        </li>
+                        <li class="nav-item"
+                            role="presentation"
+                            style="background-color: #feffee; color: #9ea700">
+                            <a class="nav-link"
+                               id="long-tab"
+                               data-bs-toggle="pill"
+                               href="#long"
+                               role="tab"
+                               aria-controls="long"
+                               aria-selected="false"
+                               style="color: #9ea700"
+                            >Features</a>
+                        </li>
+                        <li class="nav-item"
+                            role="presentation"
+                            style="background-color: #feffee; color: #9ea700">
+                            <a class="nav-link"
+                               id="link-tab"
+                               data-bs-toggle="pill"
+                               href="#link"
+                               role="tab"
+                               aria-controls="link"
+                               aria-selected="false"
+                               style="color: #9ea700"
+                            >Screenshots</a>
+                        </li>
+                        <li class="nav-item"
+                            role="presentation"
+                            style="background-color: #feffee; color: #9ea700">
+                            <a class="nav-link disabled"
+                               id="disabled-tab"
+                               data-bs-toggle="pill"
+                               href="#disabled"
+                               role="tab"
+                               aria-controls="disabled"
+                               aria-selected="false"
+                               style="color: #9ea700"
+                            >Released Notes</a>
+                        </li>
+                    </ul>
+                    <!-- end -->
+                    <div class="tab-content" id="myTabContent">
+                        <!-- overview div -->
+                        <div class="tab-pane fade show active"
+                             id="active"
+                             role="tabpanel"
+                             aria-labelledby="active-tab">
+                            <p style="color: #828176;font-size: 16px;margin-bottom: 20px;line-height: 1.8rem;">
+                                 The Invoice Format Editor empowers businesses
+                                to personalize and refine their invoices,
+                                fostering a professional brand image. It grants
+                                users the ability to modify the layout,
+                                customize content with additional fields or
+                                edited wording, and potentially manage various
+                                invoice templates. This level of control allows
+                                businesses to tailor their invoices to specific
+                                needs and branding preferences, ultimately
+                                enhancing the invoicing experience.
+                            </p>
+                            <p style="color: #828176;font-size: 16px;margin-bottom: 20px;line-height: 1.8rem;">
+
+                            </p>
+                            <div class="p-3"
+                                 style="background-color: #9ea700; color: #fff">
+                                <h4 class="font-weight-bold">Key Features</h4>
+                                <ul class="ms-3 ps-0 mb-0">
+                                    <li class="py-2">Configure the layout
+                                    </li>
+                                    <li class="py-2">
+                                        Configure the position of fields
+                                    </li>
+                                    <li class="py-2">
+                                        Hide option for the invoice fields
+                                    </li>
+                                    <li class="py-2">
+                                        Edit the theme
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <!-- end -->
+                        <!-- features div-->
+                        <div class="tab-pane fade"
+                             id="long"
+                             role="tabpanel"
+                             aria-labelledby="long-tab">
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <div class="card"
+                                         style="background-color: #f6f6f6;border-radius: 40px; padding: 16px; min-height: 256px;">
+                                        <div class="card-body">
+                                            <h5 class="card-title"
+                                                style="border-bottom: 1px solid #d8d8d8;
+                                                      margin-bottom: 20px;
+                                                      padding-bottom: 20px;
+                                                      font-size: 24px;
+                                                      font-weight: 700;
+                                                      line-height: 32px;
+                                                      ">
+                                                Configure the layout
+                                            </h5>
+                                            <p class="card-text"
+                                               style="color: #828176; line-height: 1.8rem">
+                                                Configure the layout for the invoice.
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <div class="card"
+                                         style="
+                                                  background-color: #f6f6f6;
+                                                  border-radius: 40px;
+                                                  padding: 16px;
+                                                  min-height: 256px;
+                                                ">
+                                        <div class="card-body">
+                                            <h5 class="card-title"
+                                                    style="
+                                                          border-bottom: 1px solid #d8d8d8;
+                                                          margin-bottom: 20px;
+                                                          padding-bottom: 20px;
+                                                          font-size: 24px;
+                                                          font-weight: 700;
+                                                          line-height: 32px;
+                                                        ">
+                                                Configure the position of fields
+                                            </h5>
+                                            <p class="card-text"
+                                               style="color: #828176; line-height: 1.8rem">
+                                                Configure the position of fields
+                                                in the invoice report.
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <div class="card"
+                                         style="
+                                                  background-color: #f6f6f6;
+                                                  border-radius: 40px;
+                                                  padding: 16px;
+                                                  min-height: 256px;
+                                                ">
+                                        <div class="card-body">
+                                            <h5 class="card-title"
+                                                    style="
+                                                          border-bottom: 1px solid #d8d8d8;
+                                                          margin-bottom: 20px;
+                                                          padding-bottom: 20px;
+                                                          font-size: 24px;
+                                                          font-weight: 700;
+                                                          line-height: 32px;
+                                                        ">
+                                               Hide option for the invoice fields
+                                            </h5>
+                                            <p class="card-text"
+                                               style="color: #828176; line-height: 1.8rem">
+                                                You can hide the invoice fields
+                                                from the report.
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <div class="card"
+                                         style="
+                                                  background-color: #f6f6f6;
+                                                  border-radius: 40px;
+                                                  padding: 16px;
+                                                  min-height: 256px;
+                                                ">
+                                        <div class="card-body">
+                                            <h5 class="card-title"
+                                                    style="
+                                                          border-bottom: 1px solid #d8d8d8;
+                                                          margin-bottom: 20px;
+                                                          padding-bottom: 20px;
+                                                          font-size: 24px;
+                                                          font-weight: 700;
+                                                          line-height: 32px;
+                                                        ">
+                                                Edit the theme
+                                            </h5>
+                                            <p class="card-text"
+                                               style="color: #828176; line-height: 1.8rem">
+                                                You can customize the theme for the report.
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- screenshots -->
+                        <div class="tab-pane fade"
+                             id="link"
+                             role="tabpanel"
+                             aria-labelledby="link-tab">
+                            <div class="my-3">
+                                <div>
+                                    <div>
+                                        <div style="
+                                                    background-color: #feffeb;
+                                                    border-radius: 20px;
+                                                    padding: 30px;
+                                                  ">
+                                            <div class="d-none d-md-block"
+                                                 style="
+                                                        color: #121212;
+                                                        position: relative;
+                                                        top: -9%;
+                                                        text-align: left;
+                                                        left: unset;
+                                                        right: unset;
+                                                        padding: 10px 30px;
+                                                      ">
+                                                <h5 style="font-size: 28px; font-weight: 600">
+                                                    Document layout configuration
+                                                </h5>
+                                                <p style="font-size: 14px; color: #828176">
+                                                    From Document layout configuration in
+                                                    settings, user can select and configure the
+                                                    invoice document layout
+                                                </p>
+                                            </div>
+                                            <img
+                                                src="images/img.png"
+                                                class="d-block w-100"
+                                                alt="..."
+                                                style="padding: 0px 30px 10px 30px"
+                                            />
+                                        </div>
+                                        <div style="
+                                                  background-color: #feffeb;
+
+                                                  border-radius: 20px;
+                                                  padding: 30px;
+                                                ">
+                                            <div style="
+                                                      color: #121212;
+                                                      position: relative;
+                                                      top: -9%;
+                                                      text-align: left;
+                                                      left: unset;
+                                                      right: unset;
+                                                      padding: 10px 30px;
+                                                    ">
+                                                <h5 style="font-size: 28px; font-weight: 600">
+                                                    Invoice Layout Configuration
+                                                </h5>
+                                                <p style="font-size: 14px; color: #828176">
+                                                    User can configure the text positions, text
+                                                    colors and invoice fields.
+                                                </p>
+                                            </div>
+                                            <img
+                                                src="images/img_1.png"
+                                                class="d-block w-100"
+                                                alt="..."
+                                                style="padding: 0px 30px 10px 30px"
+                                            />
+                                        </div>
+                                        <div style="
+                                                  background-color: #feffeb;
+
+                                                  border-radius: 20px;
+                                                  padding: 30px;
+                                                ">
+                                            <div style="
+                                                      color: #121212;
+                                                      position: relative;
+                                                      top: -9%;
+                                                      text-align: left;
+                                                      left: unset;
+                                                      right: unset;
+                                                      padding: 10px 30px;
+                                                    ">
+                                                <h5 style="font-size: 28px; font-weight: 600">
+                                                    Print Invoice
+                                                </h5>
+                                            </div>
+                                            <img
+                                                src="images/img_2.png"
+                                                class="d-block w-100"
+                                                alt="..."
+                                                style="padding: 0px 30px 10px 30px"
+                                            />
+                                        </div>
+                                        <div style="
+                                                  background-color: #feffeb;
+
+                                                  border-radius: 20px;
+                                                  padding: 30px;
+                                                ">
+                                            <div style="
+                                                      color: #121212;
+                                                      position: relative;
+                                                      top: -9%;
+                                                      text-align: left;
+                                                      left: unset;
+                                                      right: unset;
+                                                      padding: 10px 30px;
+                                                    ">
+                                                <h5 style="font-size: 28px; font-weight: 600">
+                                                    Normal Template
+                                                </h5>
+                                            </div>
+                                            <img
+                                                src="images/img_3.png"
+                                                class="d-block w-100"
+                                                alt="..."
+                                                style="padding: 0px 30px 10px 30px"
+                                            />
+                                        </div>
+                                        <div style="
+                                                  background-color: #feffeb;
+
+                                                  border-radius: 20px;
+                                                  padding: 30px;
+                                                ">
+                                            <div style="
+                                                      color: #121212;
+                                                      position: relative;
+                                                      top: -9%;
+                                                      text-align: left;
+                                                      left: unset;
+                                                      right: unset;
+                                                      padding: 10px 30px;
+                                                    ">
+                                                <h5 style="font-size: 28px; font-weight: 600">
+                                                     Modern Template
+                                                </h5>
+                                            </div>
+                                            <img
+                                                src="images/img_4.png"
+                                                class="d-block w-100"
+                                                alt="..."
+                                                style="padding: 0px 30px 10px 30px"
+                                            />
+                                        </div>
+                                        <div style="
+                                                  background-color: #feffeb;
+
+                                                  border-radius: 20px;
+                                                  padding: 30px;
+                                                ">
+                                            <div style="
+                                                      color: #121212;
+                                                      position: relative;
+                                                      top: -9%;
+                                                      text-align: left;
+                                                      left: unset;
+                                                      right: unset;
+                                                      padding: 10px 30px;
+                                                    ">
+                                                <h5 style="font-size: 28px; font-weight: 600">
+                                                    Old Standard Template
+                                                </h5>
+                                            </div>
+                                            <img
+                                                src="images/img_5.png"
+                                                class="d-block w-100"
+                                                alt="..."
+                                                style="padding: 0px 30px 10px 30px"
+                                            />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- end -->
+                        <!-- Release noted div -->
+                        <div
+                            class="tab-pane fade"
+                            id="disabled"
+                            role="tabpanel"
+                            aria-labelledby="disabled-tab"
+                        >Disabled tab content
+                        </div>
+                        <!-- end -->
+                    </div>
+                </section>
+            </div>
+            <div class="col-md-4 col-lg-8 p-2"></div>
+            <div class="" style="height: 1px; background-color: #9ea700"></div>
+            <!-- accordian -->
+        </div>
+    </div>
+</div>
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+<script
+        src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+        crossorigin="anonymous"
+></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
+</body>
+</html>
